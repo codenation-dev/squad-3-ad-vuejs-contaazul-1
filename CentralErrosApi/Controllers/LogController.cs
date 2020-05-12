@@ -22,9 +22,9 @@ namespace CentralErrosApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] List<int> locais, string searchProperty = "", string searchPhrase = "", string sortProperty = "", string sortOrder = "", int pageSize = 20, int page = 1)
+        public async Task<IActionResult> Get()
         {
-            return Ok(await _repo.Get(locais.Select(x => (LocalEnum)x).ToList(), searchProperty, searchPhrase, sortProperty, sortOrder, pageSize, page));
+            return Ok(await _repo.Get());
         }
 
         [HttpGet("{id}")]
