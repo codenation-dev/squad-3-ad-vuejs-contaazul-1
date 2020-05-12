@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div>
     <h1>Aqui será a dashboard</h1>
     <div v-for="log in logs" :key="log.id">
       <div class="log-container">
