@@ -1,40 +1,66 @@
 <template>
   <div>
     <h1>Aqui será a dashboard</h1>
-    <div v-for="log in logs" :key="log.id">
-      <div class="log-container">
-        <p>ID: {{ log.id }}</p>
-        <p>TITULO: {{ log.titulo }}</p>
-        <p>DETALHES: {{ log.detalhes }}</p>
-        <p>LEVEL: {{ log.level }}</p>
-        <p>LOCAL: {{ log.local }}</p>
-        <p>ORIGEM: {{ log.origem }}</p>
-        <p>FREQUENCIA: {{ log.frequencia }}</p>
-        <p>DATA: {{ log.data }}</p>
-      </div>
+    <div class="graph-height">
+      <total-by-local :chart-data="datacollection" :options="config" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import TotalByLocal from './charts/total-by-local/view';
+import { data } from './charts/total-by-local/data';
+import { configChart } from '@/utils/chart';
 
 export default {
   name: 'Dashboard',
-  created() {
-    this.loadLogs();
+
+  components: {
+    TotalByLocal,
   },
+
+  data() {
+    return {
+      config: {},
+      datacollection: {},
+    };
+  },
+
   computed: {
-    ...mapGetters('Logs', ['logs']),
+    ...mapGetters('Logs', [
+      'qtdLogsProducao',
+      'qtdLogsHml',
+      'qtdLogsDev',
+      'qtdErrors',
+      'qtdWarnings',
+      'qtdDebugs',
+    ]),
   },
+
+  async created() {
+    await this.loadLogs();
+    this.config = configChart('Registros por ambiente');
+    this.datacollection = data({
+      prod: this.qtdLogsProducao,
+      hml: this.qtdLogsHml,
+      dev: this.qtdLogsDev,
+    });
+  },
+
   methods: {
     ...mapActions('Logs', ['loadLogs']),
+
+    getRandomInt() {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.log-container {
-  margin-bottom: 40px;
+.graph-height {
+  height: 200px;
+  width: 600px;
 }
 </style>
