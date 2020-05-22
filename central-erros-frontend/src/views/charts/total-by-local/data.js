@@ -1,4 +1,4 @@
-export const data = ({ prod, hml, dev }) => ({
+export const getTotalByLocalData = ({ prod, hml, dev }) => ({
   labels: ['Total'],
   datasets: [
     {
