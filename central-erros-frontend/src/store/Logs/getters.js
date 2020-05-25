@@ -38,7 +38,7 @@ const qtdDebugs = ({ logs }) =>
   }, 0);
 
 const devByYear = ({ logs }) => {
-  const yearArray = new Array(12).fill(0);
+  const yearArray = new Array(moment().month() + 1).fill(0);
   const devLogs = logs.filter(log => log.local === local.dev);
   devLogs.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
@@ -48,7 +48,7 @@ const devByYear = ({ logs }) => {
 };
 
 const hmlByYear = ({ logs }) => {
-  const yearArray = new Array(12).fill(0);
+  const yearArray = new Array(moment().month() + 1).fill(0);
   const hmlLogs = logs.filter(log => log.local === local.hml);
   hmlLogs.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
@@ -58,7 +58,7 @@ const hmlByYear = ({ logs }) => {
 };
 
 const prodByYear = ({ logs }) => {
-  const yearArray = new Array(12).fill(0);
+  const yearArray = new Array(moment().month() + 1).fill(0);
   const prodLogs = logs.filter(log => log.local === local.producao);
   prodLogs.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
