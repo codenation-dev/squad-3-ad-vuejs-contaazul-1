@@ -1,8 +1,6 @@
 import { tipo, local } from '@/utils/constants';
 import moment from 'moment';
 
-const qtdTotal = ({ logs }) => logs.length;
-
 const qtdLogsProducao = ({ logs }) =>
   parseInt(
     logs.reduce((counter, current) => {
@@ -69,8 +67,52 @@ const prodByYear = ({ logs }) => {
   return yearArray;
 };
 
+const qtdErrorsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
+  logs.reduce((counter, current) => {
+    if (
+      moment(current.data).format('YYYY') == moment().year() &&
+      current.level === tipo.error
+    ) {
+      showDevYear && current.local === local.dev && counter++;
+      showHmlYear && current.local === local.hml && counter++;
+      showProdYear && current.local === local.producao && counter++;
+      return counter;
+    } else {
+      return counter;
+    }
+  }, 0);
+
+const qtdWarningsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
+  logs.reduce((counter, current) => {
+    if (
+      moment(current.data).format('YYYY') == moment().year() &&
+      current.level === tipo.warning
+    ) {
+      showDevYear && current.local === local.dev && counter++;
+      showHmlYear && current.local === local.hml && counter++;
+      showProdYear && current.local === local.producao && counter++;
+      return counter;
+    } else {
+      return counter;
+    }
+  }, 0);
+
+const qtdDebugsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
+  logs.reduce((counter, current) => {
+    if (
+      moment(current.data).format('YYYY') == moment().year() &&
+      current.level === tipo.debug
+    ) {
+      showDevYear && current.local === local.dev && counter++;
+      showHmlYear && current.local === local.hml && counter++;
+      showProdYear && current.local === local.producao && counter++;
+      return counter;
+    } else {
+      return counter;
+    }
+  }, 0);
+
 export default {
-  qtdTotal,
   qtdLogsProducao,
   qtdLogsHml,
   qtdLogsDev,
@@ -80,4 +122,7 @@ export default {
   devByYear,
   hmlByYear,
   prodByYear,
+  qtdErrorsByYear,
+  qtdWarningsByYear,
+  qtdDebugsByYear,
 };
