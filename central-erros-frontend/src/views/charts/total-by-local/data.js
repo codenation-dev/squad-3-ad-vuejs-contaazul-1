@@ -3,17 +3,17 @@ export const getTotalByLocalData = ({ prod, hml, dev }) => ({
   datasets: [
     {
       label: 'PROD',
-      backgroundColor: '#FF9993',
+      backgroundColor: '#1B5E53',
       data: [prod],
     },
     {
       label: 'HML',
-      backgroundColor: '#B590E8',
+      backgroundColor: '#611B1C',
       data: [hml],
     },
     {
       label: 'DEV',
-      backgroundColor: '#90E8A5',
+      backgroundColor: '#4D1E6B',
       data: [dev],
     },
   ],

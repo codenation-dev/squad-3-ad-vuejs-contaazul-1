@@ -1,6 +1,8 @@
 import { tipo, local } from '@/utils/constants';
 import moment from 'moment';
 
+const qtdTotal = ({ logs }) => logs.length;
+
 const qtdLogsProducao = ({ logs }) =>
   parseInt(
     logs.reduce((counter, current) => {
@@ -37,30 +39,30 @@ const qtdDebugs = ({ logs }) =>
     return current.level === tipo.debug ? counter + 1 : counter;
   }, 0);
 
-const errorsByYear = ({ logs }) => {
+const devByYear = ({ logs }) => {
   const yearArray = new Array(12).fill(0);
-  const errors = logs.filter(log => log.level === tipo.error);
-  errors.map(log => {
+  const devLogs = logs.filter(log => log.local === local.dev);
+  devLogs.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
   return yearArray;
 };
 
-const warningsByYear = ({ logs }) => {
+const hmlByYear = ({ logs }) => {
   const yearArray = new Array(12).fill(0);
-  const warnings = logs.filter(log => log.level === tipo.warning);
-  warnings.map(log => {
+  const hmlLogs = logs.filter(log => log.local === local.hml);
+  hmlLogs.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
   return yearArray;
 };
 
-const debugsByYear = ({ logs }) => {
+const prodByYear = ({ logs }) => {
   const yearArray = new Array(12).fill(0);
-  const debugs = logs.filter(log => log.level === tipo.debug);
-  debugs.map(log => {
+  const prodLogs = logs.filter(log => log.local === local.producao);
+  prodLogs.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
@@ -68,13 +70,14 @@ const debugsByYear = ({ logs }) => {
 };
 
 export default {
+  qtdTotal,
   qtdLogsProducao,
   qtdLogsHml,
   qtdLogsDev,
   qtdErrors,
   qtdWarnings,
   qtdDebugs,
-  errorsByYear,
-  warningsByYear,
-  debugsByYear,
+  devByYear,
+  hmlByYear,
+  prodByYear,
 };

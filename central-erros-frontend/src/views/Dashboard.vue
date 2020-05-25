@@ -1,26 +1,33 @@
 <template>
-  <div>
-    <h1 class="title">Aqui será a dashboard</h1>
-    {{ errorsByYear }}
-    <div class="chart-container">
-      <div class="is-width-50">
+  <div class="page">
+    <h1 class="title">Dashboard</h1>
+    <div class="charts-container">
+      <div class="is-width-40 chart-box">
         <total-by-local
           :chart-data="totalByLocalData"
           :options="totalByLocalConfig"
         />
       </div>
-      <div class="is-width-50">
+      <div class="is-width-40 chart-box">
         <total-by-tipo
           :chart-data="totalByTipoData"
           :options="totalByTipoConfig"
         />
       </div>
     </div>
-    <div>
-      <total-by-year
-        :chart-data="totalByYearData"
-        :options="totalByYearConfig"
-      />
+    <div class="charts-container chart-padding">
+      <div class="chart-box is-width-80 anual-container">
+        <div class="is-width-60 local-container">
+          <year-filter />
+          <total-by-year
+            :chart-data="totalByYearData"
+            :options="totalByYearConfig"
+          />
+        </div>
+        <div class="pie-chart">
+          <pie-tipo :chart-data="pieTipoData" :options="pieTipoConfig" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -30,9 +37,12 @@ import { mapActions, mapGetters } from 'vuex';
 import TotalByLocal from './charts/total-by-local/view';
 import TotalByTipo from './charts/total-by-tipo/view';
 import TotalByYear from './charts/total-by-year/view';
+import PieTipo from './charts/pie-tipo/view';
+import YearFilter from './year-filter';
 import { getTotalByLocalData } from './charts/total-by-local/data';
 import { getTotalByTipoData } from './charts/total-by-tipo/data';
 import { getTotalByYearData } from './charts/total-by-year/data';
+import { getPieTipoData } from './charts/pie-tipo/data';
 import { configChart } from '@/utils/chart';
 
 export default {
@@ -42,6 +52,8 @@ export default {
     TotalByLocal,
     TotalByTipo,
     TotalByYear,
+    PieTipo,
+    YearFilter,
   },
 
   data() {
@@ -52,20 +64,23 @@ export default {
       totalByTipoConfig: {},
       totalByYearData: {},
       totalByYearConfig: {},
+      pieTipoData: {},
+      pieTipoConfig: {},
     };
   },
 
   computed: {
     ...mapGetters('Logs', [
+      'qtdTotal',
       'qtdLogsProducao',
       'qtdLogsHml',
       'qtdLogsDev',
       'qtdErrors',
       'qtdWarnings',
       'qtdDebugs',
-      'errorsByYear',
-      'warningsByYear',
-      'debugsByYear',
+      'devByYear',
+      'hmlByYear',
+      'prodByYear',
     ]),
   },
 
@@ -85,10 +100,11 @@ export default {
     });
     this.totalByYearConfig = configChart('Registros no ano');
     this.totalByYearData = getTotalByYearData({
-      error: this.errorsByYear,
-      warning: this.warningsByYear,
-      debug: this.debugsByYear,
+      dev: this.devByYear,
+      hml: this.hmlByYear,
+      prod: this.prodByYear,
     });
+    this.pieTipoData = getPieTipoData({ error: 35, warning: 78, debug: 22 });
   },
 
   methods: {
@@ -100,8 +116,32 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/style-utils.scss';
 
-.chart-container {
+.charts-container {
   display: flex;
+  justify-content: space-evenly;
   width: 100%;
+}
+
+.chart-box {
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  box-shadow: 3px 3px #e6e6e6;
+  padding: 20px;
+}
+
+.chart-padding {
+  padding: 30px 0px 50px 0px;
+}
+
+.local-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.anual-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 </style>
