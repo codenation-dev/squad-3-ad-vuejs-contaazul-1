@@ -26,7 +26,7 @@ import { mapMutations, mapState } from 'vuex';
 export default {
   name: 'YearFilter',
   computed: {
-    ...mapState('Logs', ['showProdYear', 'showHmlYear', 'showDevYear']),
+    ...mapState('Logs', ['showDevYear', 'showHmlYear', 'showProdYear']),
   },
   methods: {
     ...mapMutations('Logs', ['setProdYear', 'setHmlYear', 'setDevYear']),
