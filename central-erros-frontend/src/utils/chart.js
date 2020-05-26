@@ -1,6 +1,6 @@
-export const configChart = chartTitle => ({
+export const configLineChart = () => ({
   responsive: true,
-  title: { display: true, text: chartTitle },
+  title: { display: false },
   maintainAspectRatio: false,
   scales: {
     yAxes: [
@@ -23,4 +23,9 @@ export const configChart = chartTitle => ({
       },
     },
   },
+});
+
+export const configDoughnutChart = () => ({
+  responsive: true,
+  maintainAspectRatio: false,
 });

@@ -2,19 +2,31 @@
   <div class="filter-row">
     <div>
       <label class="checkbox">
-        <input type="checkbox" checked @click="setProdYear(!showProdYear)" />
+        <input
+          type="checkbox"
+          :checked="showProdYear"
+          @click="setProdYear(!showProdYear)"
+        />
         <span class="subtitle is-5">Produção</span>
       </label>
     </div>
     <div>
       <label class="checkbox">
-        <input type="checkbox" checked @click="setHmlYear(!showHmlYear)" />
+        <input
+          type="checkbox"
+          :checked="showHmlYear"
+          @click="setHmlYear(!showHmlYear)"
+        />
         <span class="subtitle is-5">Homologação</span>
       </label>
     </div>
     <div>
       <label class="checkbox">
-        <input type="checkbox" checked @click="setDevYear(!showDevYear)" />
+        <input
+          type="checkbox"
+          :checked="showDevYear"
+          @click="setDevYear(!showDevYear)"
+        />
         <span class="subtitle is-5">Desenvolvimento</span>
       </label>
     </div>
