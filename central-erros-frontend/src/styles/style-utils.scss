@@ -2,10 +2,28 @@
   width: 100%;
 }
 
+.is-width-80 {
+  width: 80%;
+}
+
+.is-width-60 {
+  width: 60%;
+}
+
 .is-width-50 {
   width: 50%;
 }
 
 .is-width-40 {
   width: 40%;
+}
+
+.page {
+  height: 100%;
+  background-color: #f5f5f5;
+}
+
+.card-title {
+  font-size: 24px;
+  color: #4b4b4b;
 }

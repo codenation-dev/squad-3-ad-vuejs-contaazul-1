@@ -37,30 +37,30 @@ const qtdDebugs = ({ logs }) =>
     return current.level === tipo.debug ? counter + 1 : counter;
   }, 0);
 
-const errorsByYear = ({ logs }) => {
-  const yearArray = new Array(12).fill(0);
-  const errors = logs.filter(log => log.level === tipo.error);
-  errors.map(log => {
+const devByYear = ({ logs }) => {
+  const yearArray = new Array(moment().month() + 1).fill(0);
+  const devLogs = logs.filter(log => log.local === local.dev);
+  devLogs.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
   return yearArray;
 };
 
-const warningsByYear = ({ logs }) => {
-  const yearArray = new Array(12).fill(0);
-  const warnings = logs.filter(log => log.level === tipo.warning);
-  warnings.map(log => {
+const hmlByYear = ({ logs }) => {
+  const yearArray = new Array(moment().month() + 1).fill(0);
+  const hmlLogs = logs.filter(log => log.local === local.hml);
+  hmlLogs.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
   return yearArray;
 };
 
-const debugsByYear = ({ logs }) => {
-  const yearArray = new Array(12).fill(0);
-  const debugs = logs.filter(log => log.level === tipo.debug);
-  debugs.map(log => {
+const prodByYear = ({ logs }) => {
+  const yearArray = new Array(moment().month() + 1).fill(0);
+  const prodLogs = logs.filter(log => log.local === local.producao);
+  prodLogs.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
@@ -91,6 +91,50 @@ const filteredLogs = ({ filterLogsLevel }, getters) => {
   });
   return arrayFiltered;
 };
+const qtdErrorsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
+  logs.reduce((counter, current) => {
+    if (
+      moment(current.data).format('YYYY') == moment().year() &&
+      current.level === tipo.error
+    ) {
+      showDevYear && current.local === local.dev && counter++;
+      showHmlYear && current.local === local.hml && counter++;
+      showProdYear && current.local === local.producao && counter++;
+      return counter;
+    } else {
+      return counter;
+    }
+  }, 0);
+
+const qtdWarningsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
+  logs.reduce((counter, current) => {
+    if (
+      moment(current.data).format('YYYY') == moment().year() &&
+      current.level === tipo.warning
+    ) {
+      showDevYear && current.local === local.dev && counter++;
+      showHmlYear && current.local === local.hml && counter++;
+      showProdYear && current.local === local.producao && counter++;
+      return counter;
+    } else {
+      return counter;
+    }
+  }, 0);
+
+const qtdDebugsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
+  logs.reduce((counter, current) => {
+    if (
+      moment(current.data).format('YYYY') == moment().year() &&
+      current.level === tipo.debug
+    ) {
+      showDevYear && current.local === local.dev && counter++;
+      showHmlYear && current.local === local.hml && counter++;
+      showProdYear && current.local === local.producao && counter++;
+      return counter;
+    } else {
+      return counter;
+    }
+  }, 0);
 
 export default {
   qtdLogsProducao,
@@ -99,9 +143,12 @@ export default {
   qtdErrors,
   qtdWarnings,
   qtdDebugs,
-  errorsByYear,
-  warningsByYear,
-  debugsByYear,
   formatedLogs,
   filteredLogs,
+  devByYear,
+  hmlByYear,
+  prodByYear,
+  qtdErrorsByYear,
+  qtdWarningsByYear,
+  qtdDebugsByYear,
 };

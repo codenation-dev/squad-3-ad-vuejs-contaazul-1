@@ -3,17 +3,17 @@ export const getTotalByTipoData = ({ error, warning, debug }) => ({
   datasets: [
     {
       label: 'ERROR',
-      backgroundColor: '#FF9993',
+      backgroundColor: '#750102',
       data: [error],
     },
     {
       label: 'WARNING',
-      backgroundColor: '#B590E8',
+      backgroundColor: '#e77901',
       data: [warning],
     },
     {
       label: 'DEBUG',
-      backgroundColor: '#90E8A5',
+      backgroundColor: '#1c2e54',
       data: [debug],
     },
   ],
