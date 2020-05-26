@@ -1,13 +1,16 @@
 <template>
   <div>
-    <div class="columns">
-      <div class="column">
+    <div class="columns is-centered">
+      <div class="column is-4">
         <input v-model="filterLevel" value="1" type="checkbox" />
         <label for>Produção</label>
         <input v-model="filterLevel" value="2" type="checkbox" />
         <label for>Homologação</label>
         <input v-model="filterLevel" value="3" type="checkbox" />
         <label for>Dev</label>
+      </div>
+      <div class="column is-4">
+        <input type="text" />
       </div>
     </div>
     <lista-de-logs :log-list="logList"></lista-de-logs>
