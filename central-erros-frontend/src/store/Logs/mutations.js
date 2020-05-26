@@ -5,6 +5,10 @@ export default {
   ['SET_FILTER_LEVEL'](state, listLevel) {
     state.filterLogsLevel = listLevel;
   },
+  ['SET_FILTER_COLUMN'](state, filter) {
+    state.filterColumnListLogs = filter.column;
+    state.filterSearchLog = filter.search;
+  },
   ['setProdYear'](state, value) {
     state.showProdYear = value;
   },

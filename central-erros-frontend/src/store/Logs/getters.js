@@ -67,23 +67,52 @@ const prodByYear = ({ logs }) => {
   return yearArray;
 };
 
-const formatedLogs = ({ logs }) =>
-  logs.map(log => {
+const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
+  var formatedLogs = logs.map(log => {
     log.data = moment(log.data).format('DD/MM/YYYY');
-    if (log.level == 1) {
+    if (log.level == tipo.debug) {
       log.level = 'debug';
-    } else if (log.level == 2) {
+    } else if (log.level == tipo.warning) {
       log.level = 'warning';
-    } else if (log.level == 3) {
+    } else if (log.level == tipo.error) {
       log.level = 'error';
     }
     return log;
   });
 
+  var logsSpecificColumn = formatedLogs.filter(log => {
+    if (filterColumnListLogs != null) {
+      if (filterColumnListLogs.name == 'Level') {
+        return log.level.toLowerCase().includes(filterSearchLog.toLowerCase());
+      }
+
+      if (filterColumnListLogs.name == 'Descrição') {
+        return log.titulo.toLowerCase().includes(filterSearchLog.toLowerCase());
+      }
+
+      if (filterColumnListLogs.name == 'Origem') {
+        return log.origem.toLowerCase().includes(filterSearchLog.toLowerCase());
+      }
+
+      if (filterColumnListLogs.name == 'Data') {
+        return log.data.includes(filterSearchLog);
+      }
+
+      if (filterColumnListLogs.name == 'Evento') {
+        return log.frequencia.toString().includes(filterSearchLog);
+      }
+    } else {
+      return log;
+    }
+  });
+
+  return logsSpecificColumn;
+};
+
 const filteredLogs = ({ filterLogsLevel }, getters) => {
   var arrayFiltered = [];
   filterLogsLevel.forEach(level => {
-    getters.formatedLogs.forEach(log => {
+    getters.formatLogs.forEach(log => {
       if (log.local == level) {
         arrayFiltered.push(log);
       }
@@ -143,7 +172,7 @@ export default {
   qtdErrors,
   qtdWarnings,
   qtdDebugs,
-  formatedLogs,
+  formatLogs,
   filteredLogs,
   devByYear,
   hmlByYear,

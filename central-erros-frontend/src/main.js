@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './../node_modules/bulma/css/bulma.css';
+import 'vue-multiselect/dist/vue-multiselect.min.css';
 import moment from 'moment';
 
 moment.locale('pt_BR');
