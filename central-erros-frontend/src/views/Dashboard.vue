@@ -46,7 +46,7 @@ import TotalByLocal from './charts/total-by-local/view';
 import TotalByTipo from './charts/total-by-tipo/view';
 import TotalByYear from './charts/total-by-year/view';
 import PieTipo from './charts/pie-tipo/view';
-import YearFilter from './Year-filter';
+import YearFilter from './Year-chart-filter';
 import { getTotalByLocalData } from './charts/total-by-local/data';
 import { getTotalByTipoData } from './charts/total-by-tipo/data';
 import { getTotalByYearData } from './charts/total-by-year/data';
