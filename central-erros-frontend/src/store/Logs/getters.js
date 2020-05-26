@@ -67,6 +67,31 @@ const debugsByYear = ({ logs }) => {
   return yearArray;
 };
 
+const formatedLogs = ({ logs }) =>
+  logs.map(log => {
+    log.data = moment(log.data).format('DD/MM/YYYY');
+    if (log.level == 1) {
+      log.level = 'debug';
+    } else if (log.level == 2) {
+      log.level = 'warning';
+    } else if (log.level == 3) {
+      log.level = 'error';
+    }
+    return log;
+  });
+
+const filteredLogs = ({ filterLogsLevel }, getters) => {
+  var arrayFiltered = [];
+  filterLogsLevel.forEach(level => {
+    getters.formatedLogs.forEach(log => {
+      if (log.local == level) {
+        arrayFiltered.push(log);
+      }
+    });
+  });
+  return arrayFiltered;
+};
+
 export default {
   qtdLogsProducao,
   qtdLogsHml,
@@ -77,4 +102,6 @@ export default {
   errorsByYear,
   warningsByYear,
   debugsByYear,
+  formatedLogs,
+  filteredLogs,
 };

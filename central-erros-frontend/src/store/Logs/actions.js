@@ -8,6 +8,11 @@ const loadLogs = async ({ commit, rootGetters }) => {
   }
 };
 
+const addFilterLevel = ({ commit }, listLevel) => {
+  commit('SET_FILTER_LEVEL', listLevel);
+};
+
 export default {
   loadLogs,
+  addFilterLevel,
 };
