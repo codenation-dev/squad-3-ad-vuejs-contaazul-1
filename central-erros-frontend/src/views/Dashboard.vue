@@ -1,6 +1,5 @@
 <template>
   <div class="page">
-    <h1 class="title">Dashboard</h1>
     <div class="charts-container">
       <div class="is-width-80 chart-box">
         <div class="filter">
@@ -148,6 +147,7 @@ export default {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+  padding: 30px 0px;
 }
 
 .chart-box {
@@ -156,10 +156,6 @@ export default {
   border-radius: 6px;
   box-shadow: 3px 3px #e6e6e6;
   padding: 20px;
-}
-
-.chart-padding {
-  padding: 30px 0px 50px 0px;
 }
 
 .local-container {
