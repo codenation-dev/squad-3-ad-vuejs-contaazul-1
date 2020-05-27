@@ -6,5 +6,14 @@ export const login = async ({ username, password }) => {
     Email: username,
     Senha: password,
   };
+
   return await axios.post(`${api}/usuario/autenticar`, payload);
+};
+
+export const create = async ({ username, password }) => {
+  const payload = {
+    Email: username,
+    Senha: password,
+  };
+  return await axios.post(`${api}/usuario/`, payload);
 };
