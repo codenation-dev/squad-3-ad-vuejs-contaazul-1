@@ -1,42 +1,6 @@
 import { tipo, local } from '@/utils/constants';
 import moment from 'moment';
 
-const qtdLogsProducao = ({ logs }) =>
-  parseInt(
-    logs.reduce((counter, current) => {
-      return current.local === local.producao ? counter + 1 : counter;
-    }, 0),
-  );
-
-const qtdLogsHml = ({ logs }) =>
-  parseInt(
-    logs.reduce((counter, current) => {
-      return current.local === local.hml ? counter + 1 : counter;
-    }, 0),
-  );
-
-const qtdLogsDev = ({ logs }) =>
-  parseInt(
-    logs.reduce((counter, current) => {
-      return current.local === local.dev ? counter + 1 : counter;
-    }, 0),
-  );
-
-const qtdErrors = ({ logs }) =>
-  logs.reduce((counter, current) => {
-    return current.level === tipo.error ? counter + 1 : counter;
-  }, 0);
-
-const qtdWarnings = ({ logs }) =>
-  logs.reduce((counter, current) => {
-    return current.level === tipo.warning ? counter + 1 : counter;
-  }, 0);
-
-const qtdDebugs = ({ logs }) =>
-  logs.reduce((counter, current) => {
-    return current.level === tipo.debug ? counter + 1 : counter;
-  }, 0);
-
 const devByYear = ({ logs }) => {
   const yearArray = new Array(moment().month() + 1).fill(0);
   const devLogs = logs.filter(log => log.local === local.dev);
@@ -65,6 +29,36 @@ const prodByYear = ({ logs }) => {
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
   return yearArray;
+};
+
+const errorByMonth = ({ logs }) => {
+  const monthArray = new Array(moment().daysInMonth()).fill(0);
+  const errorLogs = logs.filter(log => log.level === tipo.error);
+  errorLogs.map(log => {
+    const day = parseInt(moment(log.data).format('DD'));
+    monthArray[day] = monthArray[day] + 1;
+  });
+  return monthArray;
+};
+
+const warningByMonth = ({ logs }) => {
+  const monthArray = new Array(moment().daysInMonth()).fill(0);
+  const warningLogs = logs.filter(log => log.level === tipo.warning);
+  warningLogs.map(log => {
+    const day = parseInt(moment(log.data).format('DD'));
+    monthArray[day] = monthArray[day] + 1;
+  });
+  return monthArray;
+};
+
+const debugByMonth = ({ logs }) => {
+  const monthArray = new Array(moment().daysInMonth()).fill(0);
+  const debugLogs = logs.filter(log => log.level === tipo.debug);
+  debugLogs.map(log => {
+    const day = parseInt(moment(log.data).format('DD'));
+    monthArray[day] = monthArray[day] + 1;
+  });
+  return monthArray;
 };
 
 const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
@@ -166,17 +160,14 @@ const qtdDebugsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
   }, 0);
 
 export default {
-  qtdLogsProducao,
-  qtdLogsHml,
-  qtdLogsDev,
-  qtdErrors,
-  qtdWarnings,
-  qtdDebugs,
   formatLogs,
   filteredLogs,
   devByYear,
   hmlByYear,
   prodByYear,
+  errorByMonth,
+  warningByMonth,
+  debugByMonth,
   qtdErrorsByYear,
   qtdWarningsByYear,
   qtdDebugsByYear,

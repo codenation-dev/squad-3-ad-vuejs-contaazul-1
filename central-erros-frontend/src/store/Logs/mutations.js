@@ -18,4 +18,13 @@ export default {
   ['setDevYear'](state, value) {
     state.showDevYear = value;
   },
+  ['setErrorMonth'](state, value) {
+    state.showErrorMonth = value;
+  },
+  ['setWarningMonth'](state, value) {
+    state.showWarningMonth = value;
+  },
+  ['setDebugMonth'](state, value) {
+    state.showDebugMonth = value;
+  },
 };
