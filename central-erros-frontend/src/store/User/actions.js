@@ -1,4 +1,5 @@
 import { login as loginService } from '@/services/user.js';
+import { create as createService } from '@/services/user.js';
 
 const login = async ({ commit }, { username, password }) => {
   const { data } = await loginService({ username, password });
@@ -7,6 +8,14 @@ const login = async ({ commit }, { username, password }) => {
   }
 };
 
+const create = async ({ commit }, { username, password }) => {
+  const { data } = await createService({ username, password });
+  if (data.token) {
+    commit('SET_USER', data);
+  }
+};
+
 export default {
   login,
+  create,
 };
