@@ -26,6 +26,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~bulma';
+$size: 70px;
+$position: 50%;
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -43,6 +47,26 @@ export default {
 
     &.router-link-exact-active {
       color: #42b983;
+    }
+  }
+}
+
+div,
+section {
+  &.loading {
+    position: relative;
+
+    &::after {
+      @extend %loader;
+      position: absolute;
+      z-index: 999;
+      border-width: 5px;
+      width: $size;
+      height: $size;
+      top: $position;
+      left: $position;
+      margin-left: -$size / 2;
+      margin-top: -$size / 2;
     }
   }
 }
