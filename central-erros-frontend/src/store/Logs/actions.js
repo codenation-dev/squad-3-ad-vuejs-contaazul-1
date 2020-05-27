@@ -12,7 +12,12 @@ const addFilterLevel = ({ commit }, listLevel) => {
   commit('SET_FILTER_LEVEL', listLevel);
 };
 
+const addFilterColumn = ({ commit }, filter) => {
+  commit('SET_FILTER_COLUMN', { column: filter.column, search: filter.search });
+};
+
 export default {
   loadLogs,
   addFilterLevel,
+  addFilterColumn,
 };
