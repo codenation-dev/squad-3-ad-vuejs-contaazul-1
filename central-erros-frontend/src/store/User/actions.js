@@ -15,7 +15,12 @@ const create = async ({ commit }, { username, password }) => {
   }
 };
 
+const resetUser = ({ commit }) => {
+  commit('SET_USER', {});
+};
+
 export default {
   login,
   create,
+  resetUser,
 };
