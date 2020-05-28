@@ -14,5 +14,6 @@ namespace CentralErrosApi.Entities
         public int Frequencia { get; set; }
         public DateTime Data { get; set; }
         public string TokenUsuario { get; set; }
+        public bool Arquivado { get; set; }
     }
 }

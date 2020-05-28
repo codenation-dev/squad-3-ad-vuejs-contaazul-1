@@ -10,5 +10,7 @@ namespace CentralErrosApi.Data
         Task<Log> GetByIdAsync(int id);
         void DeleteAll(List<int> ids);
         Task<List<Log>> Get();
+        Task<List<Log>> GetArquivados();
+        void Update(Log log);
     }
 }
