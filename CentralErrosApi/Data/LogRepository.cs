@@ -19,6 +19,16 @@ namespace CentralErrosApi.Data
         {
             return await _db.Logs.ToListAsync();
         }
+
+        public void Update(Log log)
+        {
+            _db.Update(log);
+        }
+
+        public async Task<List<Log>> GetArquivados()
+        {
+            return await _db.Logs.Where(x => x.Arquivado).ToListAsync();
+        }
         public void DeleteAll(List<int> ids)
         {
             var logs = _db.Logs.Where(x => ids.Contains(x.Id));

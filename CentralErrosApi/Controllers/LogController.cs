@@ -26,7 +26,6 @@ namespace CentralErrosApi.Controllers
         {
             return Ok(await _repo.Get());
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -36,6 +35,13 @@ namespace CentralErrosApi.Controllers
 
             return Ok(log);
         }
+
+        [HttpGet("arquivados")]
+        public async Task<IActionResult> GetArquivados()
+        {
+            return Ok(await _repo.GetArquivados());
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Post(LogModel model)
@@ -56,6 +62,23 @@ namespace CentralErrosApi.Controllers
             if (await _repo.SaveChangesAsync())
             {
                 return Created($"/api/log/{log.Id}", log);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPut("arquivar/{id}")]
+        public async Task<IActionResult> Arquivar(int id)
+        {
+            var log = await _repo.GetByIdAsync(id);
+
+            if (log == null) return NotFound();
+
+            log.Arquivado = true;
+            _repo.Update(log);
+            if (await _repo.SaveChangesAsync())
+            {
+                return Ok();
             }
 
             return BadRequest();
