@@ -16,8 +16,13 @@ const addFilterColumn = ({ commit }, filter) => {
   commit('SET_FILTER_COLUMN', { column: filter.column, search: filter.search });
 };
 
+const resetLogs = ({ commit }) => {
+  commit('SET_LOGS', []);
+};
+
 export default {
   loadLogs,
   addFilterLevel,
   addFilterColumn,
+  resetLogs,
 };
