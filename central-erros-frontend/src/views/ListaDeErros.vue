@@ -15,6 +15,7 @@
           :options="columnListLogs"
           :searchable="false"
           :close-on-select="true"
+          :preselect-first="true"
           :custom-label="customLabelName"
           :show-labels="false"
           placeholder="Buscar por"

@@ -1,4 +1,7 @@
-import { loadLogs as loadLogsService } from '@/services/log';
+import {
+  loadLogs as loadLogsService,
+  deleteLogs as deleteLogsService,
+} from '@/services/log';
 
 const loadLogs = async ({ commit, rootGetters }) => {
   const userToken = rootGetters['User/userToken'];
@@ -6,6 +9,12 @@ const loadLogs = async ({ commit, rootGetters }) => {
   if (data.length) {
     commit('SET_LOGS', data);
   }
+};
+
+const deleteLogs = async ({ dispatch, rootGetters }, { id }) => {
+  const userToken = rootGetters['User/userToken'];
+  await deleteLogsService(id, userToken);
+  dispatch('loadLogs');
 };
 
 const addFilterLevel = ({ commit }, listLevel) => {
@@ -18,6 +27,7 @@ const addFilterColumn = ({ commit }, filter) => {
 
 export default {
   loadLogs,
+  deleteLogs,
   addFilterLevel,
   addFilterColumn,
 };

@@ -33,7 +33,7 @@
               <td>
                 {{ log.frequencia }}
                 <button>A</button>
-                <button>D</button>
+                <button @click="onClickDeleteLog(log.id)">D</button>
               </td>
             </tr>
           </tbody>
@@ -44,10 +44,17 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: 'ListaDeLogs',
   props: {
     LogList: Array,
+  },
+  methods: {
+    ...mapActions('Logs', ['deleteLogs']),
+    onClickDeleteLog(id) {
+      this.deleteLogs({ id });
+    },
   },
 };
 </script>
