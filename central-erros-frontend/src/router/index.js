@@ -4,6 +4,7 @@ import Home from '@/views/Index.vue';
 import Dashboard from '@/views/Dashboard.vue';
 import ListaDeErros from '@/views/ListaDeErros.vue';
 import Login from '@/views/Login';
+import { beforeEach } from './interceptor';
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,7 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+    meta: { noAuth: true },
   },
 ];
 
@@ -37,5 +39,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, from, next) => beforeEach(to, from, next));
 
 export default router;
