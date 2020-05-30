@@ -10,3 +10,12 @@ export const deleteLogs = async (id, userToken) => {
 
   return await axios.delete(`${api}/log/${id}`, { headers });
 };
+
+export const deleteSelectLogs = async idListLogs => {
+  var idListLogQuery = [];
+  idListLogQuery = idListLogs.reduce((cont, id) => {
+    return cont + `&ids=${id}`;
+  });
+
+  return await axios.delete(`${api}/log/deleteAll/?ids=${idListLogQuery}`);
+};

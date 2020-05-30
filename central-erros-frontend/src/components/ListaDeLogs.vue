@@ -3,7 +3,7 @@
     <div class="columns is-centered">
       <div class="column is-6">
         <button>ARQUIVAR</button>
-        <button>DELETAR</button>
+        <button @click="onClickDeleteListLog">DELETAR</button>
       </div>
     </div>
     <div class="columns is-centered">
@@ -24,7 +24,7 @@
           <tbody>
             <tr v-for="log in LogList" :key="log.id">
               <td>
-                <input type="checkbox" />
+                <input v-model="selectedLogs" :value="log.id" type="checkbox" />
               </td>
               <td>{{ log.level }}</td>
               <td>{{ log.titulo }}</td>
@@ -32,8 +32,14 @@
               <td>{{ log.data }}</td>
               <td>
                 {{ log.frequencia }}
-                <button>A</button>
-                <button @click="onClickDeleteLog(log.id)">D</button>
+                <button v-if="verifySelectedLog(log.id)">A</button>
+                <button
+                  v-if="verifySelectedLog(log.id)"
+                  @click="onClickDeleteLog(log.id)"
+                  aaaaaaaaa
+                >
+                  <span>D</span>
+                </button>
               </td>
             </tr>
           </tbody>
@@ -50,10 +56,21 @@ export default {
   props: {
     LogList: Array,
   },
+  data() {
+    return {
+      selectedLogs: [],
+    };
+  },
   methods: {
-    ...mapActions('Logs', ['deleteLogs']),
+    ...mapActions('Logs', ['deleteLogs', 'deleteListLogs']),
     onClickDeleteLog(id) {
       this.deleteLogs({ id });
+    },
+    onClickDeleteListLog() {
+      this.deleteListLogs(this.selectedLogs);
+    },
+    verifySelectedLog(idLog) {
+      return !this.selectedLogs.find(id => idLog == id);
     },
   },
 };

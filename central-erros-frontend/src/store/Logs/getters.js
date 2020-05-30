@@ -114,6 +114,7 @@ const filteredLogs = ({ filterLogsLevel }, getters) => {
   });
   return arrayFiltered;
 };
+
 const qtdErrorsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
   logs.reduce((counter, current) => {
     if (
