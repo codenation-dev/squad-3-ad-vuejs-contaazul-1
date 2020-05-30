@@ -23,6 +23,17 @@ const routes = [
         path: '/lista-erros',
         name: 'ListaDeErros',
         component: ListaDeErros,
+        props: {
+          arquivados: false,
+        },
+      },
+      {
+        path: '/arquivados',
+        name: 'arquivados',
+        component: ListaDeErros,
+        props: {
+          arquivados: true,
+        },
       },
     ],
   },

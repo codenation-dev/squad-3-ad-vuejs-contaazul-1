@@ -62,6 +62,22 @@ const debugByMonth = ({ logs }) => {
 };
 
 const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
+  return genericFormatLogs(logs, filterColumnListLogs, filterSearchLog);
+};
+
+const formatLogsArchived = (
+  { logsArchived, filterColumnListLogsArchived, filterSearchLogArchived },
+  getters,
+) => {
+  console.log(getters);
+  return genericFormatLogs(
+    logsArchived,
+    filterColumnListLogsArchived,
+    filterSearchLogArchived,
+  );
+};
+
+function genericFormatLogs(logs, filterColumnListLogs, filterSearchLog) {
   var formatedLogs = logs.map(log => {
     log.data = moment(log.data).format('DD/MM/YYYY');
     if (log.level == tipo.debug) {
@@ -101,10 +117,19 @@ const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
   });
 
   return logsSpecificColumn;
+}
+
+const filteredLogsArchived = ({ filterLogsArchived }, getters) => {
+  return genericFilteredLogs(filterLogsArchived, getters);
 };
 
 const filteredLogs = ({ filterLogsLevel }, getters) => {
+  return genericFilteredLogs(filterLogsLevel, getters);
+};
+
+function genericFilteredLogs(filterLogsLevel, getters) {
   var arrayFiltered = [];
+
   filterLogsLevel.forEach(level => {
     getters.formatLogs.forEach(log => {
       if (log.local == level) {
@@ -112,8 +137,10 @@ const filteredLogs = ({ filterLogsLevel }, getters) => {
       }
     });
   });
+
   return arrayFiltered;
-};
+}
+
 const qtdErrorsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
   logs.reduce((counter, current) => {
     if (
@@ -171,4 +198,6 @@ export default {
   qtdErrorsByYear,
   qtdWarningsByYear,
   qtdDebugsByYear,
+  formatLogsArchived,
+  filteredLogsArchived,
 };

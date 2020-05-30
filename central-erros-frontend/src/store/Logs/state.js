@@ -2,6 +2,10 @@ const logs = [];
 const filterLogsLevel = [];
 const filterColumnListLogs = [];
 const filterSearchLog = '';
+const logsArchived = [];
+const filterLogsLevelArchived = [];
+const filterColumnListLogsArchived = [];
+const filterSearchLogArchived = '';
 const showProdYear = true;
 const showHmlYear = true;
 const showDevYear = true;
@@ -14,6 +18,10 @@ export default {
   filterLogsLevel,
   filterColumnListLogs,
   filterSearchLog,
+  logsArchived,
+  filterLogsLevelArchived,
+  filterColumnListLogsArchived,
+  filterSearchLogArchived,
   showProdYear,
   showHmlYear,
   showDevYear,

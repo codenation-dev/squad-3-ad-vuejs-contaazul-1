@@ -1,30 +1,67 @@
 <template>
-  <div>
-    <div class="columns is-centered">
-      <div class="column is-4">
-        <input v-model="filterLevel" value="1" type="checkbox" />
-        <label for>Produção</label>
-        <input v-model="filterLevel" value="2" type="checkbox" />
-        <label for>Homologação</label>
-        <input v-model="filterLevel" value="3" type="checkbox" />
-        <label for>Dev</label>
+  <div class="m-t-1">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-4">
+          <div class="field">
+            <div class="control">
+              <label for="producao" class="checkbox m-r-1">
+                <input
+                  id="producao"
+                  type="checkbox"
+                  value="1"
+                  v-model="filterLevel"
+                />
+                Produção
+              </label>
+
+              <label for="homologacao" class="checkbox m-r-1">
+                <input
+                  id="homologacao"
+                  type="checkbox"
+                  value="2"
+                  v-model="filterLevel"
+                />
+                Homologação
+              </label>
+
+              <label for="dev" class="checkbox">
+                <input
+                  id="dev"
+                  type="checkbox"
+                  value="3"
+                  v-model="filterLevel"
+                />
+                Dev
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="column is-8">
+          <div class="field has-addons">
+            <div class="control">
+              <vue-multiselect
+                v-model="filterColumnListLogs"
+                :options="columnListLogs"
+                :searchable="false"
+                :close-on-select="true"
+                :custom-label="customLabelName"
+                :show-labels="false"
+                placeholder="Buscar por"
+              ></vue-multiselect>
+            </div>
+
+            <div class="control is-expanded">
+              <input v-model="filterSearch" type="text" class="input" />
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="column is-2">
-        <vue-multiselect
-          v-model="filterColumnListLogs"
-          :options="columnListLogs"
-          :searchable="false"
-          :close-on-select="true"
-          :custom-label="customLabelName"
-          :show-labels="false"
-          placeholder="Buscar por"
-        ></vue-multiselect>
-      </div>
-      <div class="column is-2">
-        <input v-model="filterSearch" type="text" />
-      </div>
+
+      <lista-de-logs :log-list="logList" v-if="!arquivados"></lista-de-logs>
+      <lista-de-logs :log-list="archivedLogList" v-else></lista-de-logs>
     </div>
-    <lista-de-logs :log-list="logList"></lista-de-logs>
   </div>
 </template>
 
@@ -67,17 +104,26 @@ export default {
       ],
     };
   },
+  props: {
+    arquivados: Boolean,
+  },
   async created() {
     await this.loadLogs();
-    console.log(this.formatLogs);
+    await this.loadLogsArchived();
   },
   computed: {
-    ...mapGetters('Logs', ['formatLogs', 'filteredLogs']),
+    ...mapGetters('Logs', [
+      'formatLogs',
+      'filteredLogs',
+      'formatLogsArchived',
+      'filteredLogsArchived',
+    ]),
     logList() {
       this.addFilterColumn({
         column: this.filterColumnListLogs,
         search: this.filterSearch,
       });
+
       if (this.filterLevel.length != 0) {
         this.addFilterLevel(this.filterLevel);
         return this.filteredLogs;
@@ -85,9 +131,29 @@ export default {
 
       return this.formatLogs;
     },
+    archivedLogList() {
+      this.addFilterColumnArchived({
+        column: this.filterColumnListLogs,
+        search: this.filterSearch,
+      });
+
+      if (this.filterLevel.length != 0) {
+        this.addFilterLevelArchived(this.filterLevel);
+        return this.filteredLogsArchived;
+      }
+
+      return this.formatLogsArchived;
+    },
   },
   methods: {
-    ...mapActions('Logs', ['loadLogs', 'addFilterLevel', 'addFilterColumn']),
+    ...mapActions('Logs', [
+      'loadLogs',
+      'addFilterLevel',
+      'addFilterColumn',
+      'loadLogsArchived',
+      'addFilterLevelArchived',
+      'addFilterColumnArchived',
+    ]),
     customLabelName: function(obj) {
       return obj.name;
     },
@@ -95,4 +161,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.m-t-1 {
+  margin-top: 1rem;
+}
+
+.m-r-1 {
+  margin-right: 1rem;
+}
+
+.multiselect__content-wrapper {
+  min-width: max-content !important;
+}
+</style>
