@@ -20,23 +20,40 @@
           <div class="column is-1">Evento</div>
           <div class="column is-2">Ações</div>
         </div>
-        <div class="columns" v-for="log in LogList" :key="log.id">
+        <div class="columns hand-pointer" v-for="log in LogList" :key="log.id">
           <div class="column is-1">
-            <input v-model="selectedLogs" :value="log.id" type="checkbox" />
+            <input
+              class="hand-pointer"
+              v-model="selectedLogs"
+              :value="log.id"
+              type="checkbox"
+            />
           </div>
-          <div class="column is-2">{{ log.level }}</div>
-          <div class="column is-2">{{ log.titulo }}</div>
-          <div class="column is-2">{{ log.origem }}</div>
-          <div class="column is-2">{{ log.data }}</div>
-          <div class="column is-1">{{ log.frequencia }}</div>
+          <div class="column is-2" @click="onClickDetails(log)">
+            {{ log.level }}
+          </div>
+          <div class="column is-2" @click="onClickDetails(log)">
+            {{ log.titulo }}
+          </div>
+          <div class="column is-2" @click="onClickDetails(log)">
+            {{ log.origem }}
+          </div>
+          <div class="column is-2" @click="onClickDetails(log)">
+            {{ log.data }}
+          </div>
+          <div class="column is-1" @click="onClickDetails(log)">
+            {{ log.frequencia }}
+          </div>
           <div class="column is-2">
-            <button @click="onClickDetails(log)" title="Visualizar">
-              <span>V</span>
-            </button>
-            <button v-if="verifySelectedLog(log.id)" title="Arquivar">
+            <button
+              v-if="verifySelectedLog(log.id)"
+              class="hand-pointer"
+              title="Arquivar"
+            >
               <span>A</span>
             </button>
             <button
+              class="hand-pointer"
               title="Deletar"
               v-if="verifySelectedLog(log.id)"
               @click="onClickDeleteLog(log.id)"
@@ -46,69 +63,30 @@
           </div>
         </div>
       </div>
-
-      <div
-        v-if="selectedLogDetails"
-        class="modal"
-        :class="activeModal ? 'is-active' : ''"
-      >
-        <div class="modal-background"></div>
-        <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Detalhes</p>
-            <button
-              @click="activeModal = false"
-              class="delete"
-              aria-label="close"
-            ></button>
-          </header>
-          <section class="modal-card-body">
-            <h1 class="title">
-              Erro no {{ selectedLogDetails.origem }} em
-              {{ selectedLogDetails.data }}
-            </h1>
-            <div class="columns">
-              <div class="column is-8">
-                <div>
-                  <h2 class="subtitle">Título</h2>
-                  <span>{{ selectedLogDetails.titulo }}</span>
-                </div>
-
-                <div>
-                  <h2 class="subtitle">Detalhes</h2>
-                  <span>{{ selectedLogDetails.detalhes }}</span>
-                </div>
-              </div>
-
-              <div class="column is-4">
-                <div>{{ selectedLogDetails.level }}</div>
-
-                <div>
-                  <h2 class="subtitle">Eventos</h2>
-                  <span>{{ selectedLogDetails.frequencia }}</span>
-                </div>
-
-                <div>
-                  <h2 class="subtitle">Coletado por</h2>
-                  <span>{{ selectedLogDetails.tokenUsuario }}</span>
-                </div>
-              </div>
-            </div>
-          </section>
-          <footer class="modal-card-foot"></footer>
-        </div>
-      </div>
     </div>
+    <log-modal
+      v-if="activeModal"
+      :log="selectedLogDetails"
+      @close="activeModal = false"
+    />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import LogModal from './LogModal';
+
 export default {
   name: 'ListaDeLogs',
+
   props: {
     LogList: Array,
   },
+
+  components: {
+    LogModal,
+  },
+
   data() {
     return {
       selectedLogs: [],
@@ -116,12 +94,14 @@ export default {
       selectedLogDetails: null,
     };
   },
+
   computed: {
     ...mapGetters('Logs', ['logsIds']),
     isCheckAll() {
       return this.selectedLogs.length == this.LogList.length;
     },
   },
+
   methods: {
     ...mapActions('Logs', ['deleteLogs', 'deleteListLogs']),
     onClickDeleteLog(id) {
@@ -158,5 +138,9 @@ export default {
 .column-title {
   font-size: 16px;
   font-weight: 600;
+}
+
+.hand-pointer {
+  cursor: pointer;
 }
 </style>
