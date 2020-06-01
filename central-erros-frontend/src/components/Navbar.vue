@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar nav-color">
+    <nav class="navbar nav-color is-fixed-top">
       <div class="nav-content">
         <div class="nav-left">
           <div

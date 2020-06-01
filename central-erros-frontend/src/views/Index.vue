@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <navbar />
-    <router-view />
+    <div class="page-container">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -16,3 +18,8 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.page-container {
+  margin-top: 50px;
+}
+</style>

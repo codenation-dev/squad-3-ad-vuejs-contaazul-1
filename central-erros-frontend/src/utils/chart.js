@@ -7,6 +7,7 @@ export const configLineChart = () => ({
       {
         ticks: {
           beginAtZero: true,
+          precision: 0,
         },
       },
     ],

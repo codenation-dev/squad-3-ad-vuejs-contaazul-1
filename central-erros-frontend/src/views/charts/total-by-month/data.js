@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export const getTotalByMonthData = ({ error, warning, debug }) => ({
-  labels: [...Array(moment().daysInMonth()).keys()],
+  labels: [...Array(moment().daysInMonth()).keys()].map(item => item + 1),
   datasets: [
     {
       label: 'ERROR',
