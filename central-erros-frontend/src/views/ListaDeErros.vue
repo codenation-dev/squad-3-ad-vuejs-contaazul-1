@@ -1,60 +1,55 @@
 <template>
-  <div class="m-t-1">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-4">
-          <div class="field">
-            <div class="control">
-              <label for="producao" class="checkbox m-r-1">
+  <div>
+    <div class="grid-container mt-3em ">
+      <div class="is-width-60">
+        <div class="row">
+          <div class="col-50 jc-start">
+            <div class="row">
+              <div class="mr-1em">
                 <input
-                  id="producao"
-                  type="checkbox"
+                  v-model="filterLevel"
+                  class="checkbox"
                   value="1"
-                  v-model="filterLevel"
-                />
-                Produção
-              </label>
-
-              <label for="homologacao" class="checkbox m-r-1">
-                <input
-                  id="homologacao"
                   type="checkbox"
+                />
+                <label for> Produção</label>
+              </div>
+
+              <div class="mr-1em">
+                <input
+                  v-model="filterLevel"
+                  class="checkbox"
                   value="2"
-                  v-model="filterLevel"
-                />
-                Homologação
-              </label>
-
-              <label for="dev" class="checkbox">
-                <input
-                  id="dev"
                   type="checkbox"
-                  value="3"
-                  v-model="filterLevel"
                 />
-                Dev
-              </label>
+                <label for> Homologação</label>
+              </div>
+
+              <div>
+                <input
+                  v-model="filterLevel"
+                  class="checkbox"
+                  value="3"
+                  type="checkbox"
+                />
+                <label for> Dev</label>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="column is-8">
-          <div class="field has-addons">
-            <div class="control">
-              <vue-multiselect
-                v-model="filterColumnListLogs"
-                :options="columnListLogs"
-                :searchable="false"
-                :close-on-select="true"
-                :custom-label="customLabelName"
-                :show-labels="false"
-                placeholder="Buscar por"
-              ></vue-multiselect>
-            </div>
-
-            <div class="control is-expanded">
-              <input v-model="filterSearch" type="text" class="input" />
-            </div>
+          <div class="col-25 mr-1em">
+            <vue-multiselect
+              v-model="filterColumnListLogs"
+              :options="columnListLogs"
+              :searchable="false"
+              :close-on-select="true"
+              :preselect-first="true"
+              :custom-label="customLabelName"
+              :show-labels="false"
+              placeholder="Buscar por"
+            ></vue-multiselect>
+          </div>
+          <div class="col-25">
+            <input class="input" v-model="filterSearch" type="text" />
           </div>
         </div>
       </div>
@@ -162,15 +157,5 @@ export default {
 </script>
 
 <style>
-.m-t-1 {
-  margin-top: 1rem;
-}
-
-.m-r-1 {
-  margin-right: 1rem;
-}
-
-.multiselect__content-wrapper {
-  min-width: max-content !important;
-}
+@import '@/styles/style-utils.scss';
 </style>

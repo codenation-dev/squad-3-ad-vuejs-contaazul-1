@@ -4,7 +4,10 @@ import moment from 'moment';
 const devByYear = ({ logs }) => {
   const yearArray = new Array(moment().month() + 1).fill(0);
   const devLogs = logs.filter(log => log.local === local.dev);
-  devLogs.map(log => {
+  const logsCurrentYear = devLogs.filter(
+    log => moment(log.data).format('YYYY') === moment().format('YYYY'),
+  );
+  logsCurrentYear.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
@@ -14,7 +17,10 @@ const devByYear = ({ logs }) => {
 const hmlByYear = ({ logs }) => {
   const yearArray = new Array(moment().month() + 1).fill(0);
   const hmlLogs = logs.filter(log => log.local === local.hml);
-  hmlLogs.map(log => {
+  const logsCurrentYear = hmlLogs.filter(
+    log => moment(log.data).format('YYYY') === moment().format('YYYY'),
+  );
+  logsCurrentYear.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
@@ -24,7 +30,10 @@ const hmlByYear = ({ logs }) => {
 const prodByYear = ({ logs }) => {
   const yearArray = new Array(moment().month() + 1).fill(0);
   const prodLogs = logs.filter(log => log.local === local.producao);
-  prodLogs.map(log => {
+  const logsCurrentYear = prodLogs.filter(
+    log => moment(log.data).format('YYYY') === moment().format('YYYY'),
+  );
+  logsCurrentYear.map(log => {
     const month = parseInt(moment(log.data).format('MM'));
     yearArray[month - 1] = yearArray[month - 1] + 1;
   });
@@ -32,34 +41,51 @@ const prodByYear = ({ logs }) => {
 };
 
 const errorByMonth = ({ logs }) => {
-  const monthArray = new Array(moment().daysInMonth()).fill(0);
-  const errorLogs = logs.filter(log => log.level === tipo.error);
+  const monthArray = new Array(3).fill(0);
+  const errorLogs = logs.filter(
+    log =>
+      log.level === tipo.error &&
+      moment(log.data).format('MM') === moment().format('MM'),
+  );
   errorLogs.map(log => {
-    const day = parseInt(moment(log.data).format('DD'));
+    const day = parseInt(moment(log.data).format('DD')) - 1;
     monthArray[day] = monthArray[day] + 1;
   });
   return monthArray;
 };
 
 const warningByMonth = ({ logs }) => {
-  const monthArray = new Array(moment().daysInMonth()).fill(0);
-  const warningLogs = logs.filter(log => log.level === tipo.warning);
+  const monthArray = new Array(3).fill(0);
+  const warningLogs = logs.filter(
+    log =>
+      log.level === tipo.warning &&
+      moment(log.data).format('MM') === moment().format('MM'),
+  );
   warningLogs.map(log => {
-    const day = parseInt(moment(log.data).format('DD'));
+    const day = parseInt(moment(log.data).format('DD')) - 1;
     monthArray[day] = monthArray[day] + 1;
   });
   return monthArray;
 };
 
 const debugByMonth = ({ logs }) => {
-  const monthArray = new Array(moment().daysInMonth()).fill(0);
-  const debugLogs = logs.filter(log => log.level === tipo.debug);
+  const monthArray = new Array(3).fill(0);
+  const debugLogs = logs.filter(
+    log =>
+      log.level === tipo.debug &&
+      moment(log.data).format('MM') === moment().format('MM'),
+  );
   debugLogs.map(log => {
-    const day = parseInt(moment(log.data).format('DD'));
+    const day = parseInt(moment(log.data).format('DD')) - 1;
     monthArray[day] = monthArray[day] + 1;
   });
   return monthArray;
 };
+
+const logsIds = ({ logs }) =>
+  logs.map(log => {
+    return log.id;
+  });
 
 const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
   return genericFormatLogs(logs, filterColumnListLogs, filterSearchLog);
@@ -187,6 +213,7 @@ const qtdDebugsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
   }, 0);
 
 export default {
+  logsIds,
   formatLogs,
   filteredLogs,
   devByYear,
