@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Open Sans', sans-serif !important;
+}
+
 .is-width-100 {
   width: 100%;
 }
@@ -36,18 +42,18 @@
   color: #4b4b4b;
 }
 
-.purple-default{
+.purple-default {
   background-color: #1a2e69 !important;
   color: white !important;
 }
 
-.red-default{
-  background-color: #A10000 !important;
+.red-default {
+  background-color: #a10000 !important;
   color: white !important;
 }
 
-.gray-default{
-  background-color: #E9E9E9;
+.gray-default {
+  background-color: #e9e9e9;
 }
 
 .grid-container {
@@ -127,3 +133,18 @@
 .p-table {
   padding: 5px;
 }
+
+button {
+  &.primary-btn {
+    width: auto;
+    background: linear-gradient(#335bd1, #1a2e69);
+    border: none;
+    padding: 0px 40px;
+    color: white;
+  }
+}
+
+// color
+$blue-system: #1a2e69;
+$red-system: #a10003;
+$gray-system: #737373;
