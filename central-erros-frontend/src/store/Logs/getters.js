@@ -41,7 +41,7 @@ const prodByYear = ({ logs }) => {
 };
 
 const errorByMonth = ({ logs }) => {
-  const monthArray = new Array(3).fill(0);
+  const monthArray = new Array(moment().date()).fill(0);
   const errorLogs = logs.filter(
     log =>
       log.level === tipo.error &&
@@ -55,7 +55,7 @@ const errorByMonth = ({ logs }) => {
 };
 
 const warningByMonth = ({ logs }) => {
-  const monthArray = new Array(3).fill(0);
+  const monthArray = new Array(moment().date()).fill(0);
   const warningLogs = logs.filter(
     log =>
       log.level === tipo.warning &&
@@ -69,7 +69,7 @@ const warningByMonth = ({ logs }) => {
 };
 
 const debugByMonth = ({ logs }) => {
-  const monthArray = new Array(3).fill(0);
+  const monthArray = new Array(moment().date()).fill(0);
   const debugLogs = logs.filter(
     log =>
       log.level === tipo.debug &&

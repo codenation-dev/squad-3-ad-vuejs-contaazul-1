@@ -156,6 +156,6 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import '@/styles/style-utils.scss';
 </style>
