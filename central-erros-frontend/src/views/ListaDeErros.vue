@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="col-25 mr-1em">
-            <vue-multiselect
+            <multiselect
               v-model="filterColumnListLogs"
               :options="columnListLogs"
               :searchable="false"
@@ -46,7 +46,7 @@
               :custom-label="customLabelName"
               :show-labels="false"
               placeholder="Buscar por"
-            ></vue-multiselect>
+            />
           </div>
           <div class="col-25">
             <input class="input" v-model="filterSearch" type="text" />
@@ -55,18 +55,26 @@
       </div>
     </div>
     <lista-de-logs :log-list="logList"></lista-de-logs>
+    <paginate
+      :total-elements="totalLogs"
+      :current-page="currentLogPage"
+      @change-page="onPageChange"
+    />
   </div>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect';
 import ListaDeLogs from '@/components/ListaDeLogs';
-import { mapActions, mapGetters } from 'vuex';
+import Paginate from '@/components/Paginate';
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
+
 export default {
   name: 'ListaDeErros',
   components: {
-    'lista-de-logs': ListaDeLogs,
-    'vue-multiselect': Multiselect,
+    ListaDeLogs,
+    Multiselect,
+    Paginate,
   },
   data() {
     return {
@@ -99,10 +107,11 @@ export default {
   },
   async created() {
     await this.loadLogs();
-    console.log(this.formatLogs);
   },
   computed: {
-    ...mapGetters('Logs', ['formatLogs', 'filteredLogs']),
+    ...mapGetters('Logs', ['formatLogs', 'filteredLogs', 'totalLogs']),
+    ...mapState('Logs', ['currentLogPage']),
+
     logList() {
       this.addFilterColumn({
         column: this.filterColumnListLogs,
@@ -118,8 +127,14 @@ export default {
   },
   methods: {
     ...mapActions('Logs', ['loadLogs', 'addFilterLevel', 'addFilterColumn']),
+    ...mapMutations('Logs', ['setCurrentLogPage']),
+
     customLabelName: function(obj) {
       return obj.name;
+    },
+
+    onPageChange(page) {
+      this.setCurrentLogPage(page);
     },
   },
 };

@@ -48,16 +48,16 @@ export default {
       showDropdown: false,
       routes: [
         {
-          name: 'Dashboard',
-          path: '/dashboard',
-        },
-        {
           name: 'Lista de erros',
           path: '/lista-erros',
         },
         {
           name: 'Arquivados',
           path: '/arquivados',
+        },
+        {
+          name: 'Dashboard',
+          path: '/dashboard',
         },
       ],
     };
