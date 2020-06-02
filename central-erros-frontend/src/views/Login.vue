@@ -197,6 +197,14 @@ export default {
       border-radius: 5px;
       font-size: 14px;
       transition: all 0.4s;
+      &.wrong {
+        color: $red-system;
+        box-shadow: 0px 2px 10px 0px rgba(253, 0, 0, 0.33);
+
+        ~ span {
+          color: #c11d1d9c;
+        }
+      }
       &::placeholder {
         color: #dbdbdb;
         transition: all 0.4s;
@@ -209,6 +217,13 @@ export default {
         ~ span i.activePass {
           &::after {
             background: $gray-system;
+          }
+        }
+        &.wrong {
+          color: $red-system;
+          box-shadow: 0px 2px 10px 0px rgba(253, 0, 0, 0.33);
+          ~ span {
+            color: $red-system !important;
           }
         }
       }
