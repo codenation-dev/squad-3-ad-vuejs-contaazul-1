@@ -5,10 +5,15 @@
         <div class="row">
           <div class="col-100">
             <div class="row">
-              <button class=" button red-default mr-1em">ARQUIVAR</button>
               <button
-                class=" button purple-default"
-                @click="onClickDeleteListLog"
+                class=" button purple-default mr-1em"
+                @click="onClickShowActionModal(false, 'arquivar todos')"
+              >
+                ARQUIVAR
+              </button>
+              <button
+                class=" button red-default"
+                @click="onClickShowActionModal(false, 'excluir todos')"
               >
                 DELETAR
               </button>
@@ -20,7 +25,7 @@
 
     <div class="grid-container">
       <div class="is-width-60 border-table">
-        <div class="row gray-default p-table ">
+        <div class="row gray-default p-table">
           <div class="col-10">
             <input :value="isCheckAll" @click="checkAll" type="checkbox" />
           </div>
@@ -66,6 +71,7 @@
                 v-if="verifySelectedLog(log.id)"
                 class="hand-pointer"
                 title="Arquivar"
+                @click="onClickShowActionModal(log.id, 'arquivar')"
               >
                 <span>A</span>
               </button>
@@ -73,7 +79,7 @@
                 class="hand-pointer"
                 title="Deletar"
                 v-if="verifySelectedLog(log.id)"
-                @click="onClickDeleteLog(log.id)"
+                @click="onClickShowActionModal(log.id, 'excluir')"
               >
                 <span>D</span>
               </button>
@@ -87,12 +93,19 @@
       :log="selectedLogDetails"
       @close="activeModal = false"
     />
+    <action-modal
+      v-if="activeActionModal != null"
+      :action="activeActionModal"
+      @close="activeActionModal = null"
+      @continue="onClickAction"
+    />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import LogModal from './LogModal';
+import ActionModal from './ActionModal';
 
 export default {
   name: 'ListaDeLogs',
@@ -103,13 +116,16 @@ export default {
 
   components: {
     LogModal,
+    ActionModal,
   },
 
   data() {
     return {
       selectedLogs: [],
       activeModal: false,
+      activeActionModal: null,
       selectedLogDetails: null,
+      logAction: null,
     };
   },
 
@@ -122,11 +138,27 @@ export default {
 
   methods: {
     ...mapActions('Logs', ['deleteLogs', 'deleteListLogs']),
-    onClickDeleteLog(id) {
-      this.deleteLogs({ id });
+    onClickShowActionModal(id, action) {
+      this.logAction = id;
+      this.activeActionModal = action;
     },
-    onClickDeleteListLog() {
-      this.deleteListLogs(this.selectedLogs);
+    onClickAction(action) {
+      if (this.logAction) {
+        if (action === 'excluir') {
+          this.deleteLogs({ id: this.logAction });
+        } else {
+          console.log('Arquivar');
+        }
+      } else {
+        if (action === 'excluir todos') {
+          this.deleteListLogs(this.selectedLogs);
+        } else {
+          console.log('Arquivar todos');
+        }
+      }
+
+      this.activeActionModal = null;
+      this.logAction = null;
     },
     verifySelectedLog(idLog) {
       return !this.selectedLogs.find(id => idLog == id);
