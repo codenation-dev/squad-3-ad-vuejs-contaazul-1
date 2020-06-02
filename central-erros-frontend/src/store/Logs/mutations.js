@@ -27,4 +27,7 @@ export default {
   ['setDebugMonth'](state, value) {
     state.showDebugMonth = value;
   },
+  ['setCurrentLogPage'](state, value) {
+    state.currentLogPage = value;
+  },
 };

@@ -8,6 +8,7 @@ const showDevYear = true;
 const showErrorMonth = true;
 const showWarningMonth = true;
 const showDebugMonth = true;
+const currentLogPage = 1;
 
 export default {
   logs,
@@ -20,4 +21,5 @@ export default {
   showErrorMonth,
   showWarningMonth,
   showDebugMonth,
+  currentLogPage,
 };

@@ -87,7 +87,12 @@ const logsIds = ({ logs }) =>
     return log.id;
   });
 
-const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
+const formatLogs = ({
+  logs,
+  filterColumnListLogs,
+  filterSearchLog,
+  currentLogPage,
+}) => {
   var formatedLogs = logs.map(log => {
     log.data = moment(log.data).format('DD/MM/YYYY');
     if (log.level == tipo.debug) {
@@ -126,10 +131,10 @@ const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
     }
   });
 
-  return logsSpecificColumn;
+  return logsSpecificColumn.splice((currentLogPage - 1) * 10, 10);
 };
 
-const filteredLogs = ({ filterLogsLevel }, getters) => {
+const filteredLogs = ({ filterLogsLevel, currentLogPage }, getters) => {
   var arrayFiltered = [];
   filterLogsLevel.forEach(level => {
     getters.formatLogs.forEach(log => {
@@ -138,7 +143,7 @@ const filteredLogs = ({ filterLogsLevel }, getters) => {
       }
     });
   });
-  return arrayFiltered;
+  return arrayFiltered.splice((currentLogPage - 1) * 10, 10);
 };
 
 const qtdErrorsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
@@ -186,6 +191,8 @@ const qtdDebugsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
     }
   }, 0);
 
+const totalLogs = ({ logs }) => logs.length;
+
 export default {
   logsIds,
   formatLogs,
@@ -199,4 +206,5 @@ export default {
   qtdErrorsByYear,
   qtdWarningsByYear,
   qtdDebugsByYear,
+  totalLogs,
 };

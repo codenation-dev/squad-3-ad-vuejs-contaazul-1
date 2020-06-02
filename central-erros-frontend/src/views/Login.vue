@@ -97,7 +97,7 @@ export default {
 
       return func
         .then(() => {
-          this.$router.push({ name: 'Dashboard' });
+          this.$router.push({ name: 'ListaDeErros' });
         })
         .catch(() => (this.user.password = ''));
     },
@@ -106,7 +106,7 @@ export default {
     },
     onClickCreate() {
       this.create(this.user).then(() => {
-        this.$router.push({ name: 'Dashboard' });
+        this.$router.push({ name: 'ListaDeErros' });
       });
     },
   },
