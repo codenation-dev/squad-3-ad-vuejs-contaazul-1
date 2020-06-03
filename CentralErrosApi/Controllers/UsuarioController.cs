@@ -40,7 +40,7 @@ namespace CentralErrosApi.Controllers
 
                 return BadRequest();
             }
-            return BadRequest("Usuário já existe.");
+            return BadRequest(new { message = "Usuário já cadastrado" });
         }
 
         [HttpPost("autenticar")]

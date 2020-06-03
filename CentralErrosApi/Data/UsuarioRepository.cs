@@ -22,9 +22,14 @@ namespace CentralErrosApi.Data
             return await _db.Usuarios.SingleOrDefaultAsync(x => x.Email.Equals(email.Trim()));
         }
 
+        public async Task<Usuario> GetUsuario(string email, string senha)
+        {
+            return await _db.Usuarios.SingleOrDefaultAsync(x => x.Email.Equals(email.Trim()) && x.Senha.Equals(senha.Trim()));
+        }
+
         public async Task<Usuario> Autenticar(string email, string senha)
         {
-            var usuario = await _db.Usuarios.SingleOrDefaultAsync(x => x.Email.Equals(email.Trim()) && x.Senha.Equals(senha.Trim()));
+            var usuario = await GetUsuario(email, senha);
 
             if (usuario == null)
                 return null;
