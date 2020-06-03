@@ -8,14 +8,14 @@
           >
             <div class="box">
               <div class="field">
-                <!-- <label for class="label">Usuário</label> -->
                 <div class="control has-icons-left">
                   <input
                     type="text"
                     v-model="user.username"
                     placeholder="Usuário"
-                    class="input"
+                    :class="{ input: true, wrong: !!errorMessage }"
                     @keyup.enter="onSubmit"
+                    @focus="errorMessage = ''"
                     required
                   />
                   <span class="icon is-small is-left">
@@ -24,14 +24,14 @@
                 </div>
               </div>
               <div class="field">
-                <!-- <label for class="label">Senha</label> -->
                 <div class="control has-icons-left has-icons-right">
                   <input
                     v-model="user.password"
                     :type="showPassword ? 'text' : 'password'"
                     placeholder="Senha"
-                    class="input"
+                    :class="{ input: true, wrong: !!errorMessage }"
                     @keyup.enter="onSubmit"
+                    @focus="errorMessage = ''"
                     required
                   />
                   <span class="icon is-small is-left">
@@ -46,25 +46,21 @@
                   </span>
                 </div>
               </div>
+              <div class="field" v-show="errorMessage">
+                <label class="has-text-danger">{{ errorMessage }}</label>
+              </div>
               <div class="field">
-                <button
-                  v-if="isLogin"
-                  @click="onSubmit()"
-                  class="button primary-btn"
-                >
-                  Login
-                </button>
-                <button v-else @click="onSubmit()" class="button primary-btn">
-                  Cadastrar
+                <button @click="onSubmit()" class="button primary-btn">
+                  {{ buttonTittle }}
                 </button>
               </div>
               <div v-if="isLogin" class="field new-account">
-                <a @click="setIsLogin(false)">
+                <a @click="isLogin = false">
                   Criar uma conta
                 </a>
               </div>
               <div v-else class="field new-account">
-                <a @click="setIsLogin(true)">
+                <a @click="isLogin = true">
                   Voltar
                 </a>
               </div>
@@ -92,12 +88,17 @@ export default {
       isLogin: true,
       showPassword: false,
       user: {},
+      errorMessage: '',
     };
   },
   name: 'App',
   methods: {
     ...mapActions('User', ['login', 'create']),
     onSubmit() {
+      if (!this.user.username || !this.user.password) {
+        this.errorMessage = 'Todos os campos são obrigatórios';
+        return;
+      }
       let func;
 
       if (this.isLogin) {
@@ -110,7 +111,12 @@ export default {
         .then(() => {
           this.$router.push({ name: 'ListaDeErros' });
         })
-        .catch(() => (this.user.password = ''));
+        .catch(
+          error => (
+            (this.user.password = ''),
+            (this.errorMessage = error.response.data.message)
+          ),
+        );
     },
     setIsLogin(flag) {
       this.isLogin = flag;
@@ -119,6 +125,11 @@ export default {
       this.create(this.user).then(() => {
         this.$router.push({ name: 'ListaDeErros' });
       });
+    },
+  },
+  computed: {
+    buttonTittle() {
+      return this.isLogin ? 'Login' : 'Cadastrar';
     },
   },
 };
