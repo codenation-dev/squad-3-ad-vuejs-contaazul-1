@@ -11,16 +11,13 @@ const loadLogs = async ({ commit }) => {
   }
 };
 
-const deleteLogs = async ({ dispatch, rootGetters }, { id }) => {
-  const userToken = rootGetters['User/userToken'];
-  await deleteLogsService(id, userToken);
+const deleteLogs = async ({ dispatch }, { id }) => {
+  await deleteLogsService(id);
   dispatch('loadLogs');
 };
 
-const deleteListLogs = async ({ dispatch, rootGetters }, idListLogs) => {
-  console.log(idListLogs);
-  const userToken = rootGetters['User/userToken'];
-  await deleteSelectLogs(idListLogs, userToken);
+const deleteListLogs = async ({ dispatch }, idListLogs) => {
+  await deleteSelectLogs(idListLogs);
   dispatch('loadLogs');
 };
 

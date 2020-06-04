@@ -30,6 +30,8 @@
       :bordered="isBordered"
       :striped="isStriped"
       :narrowed="isNarrowed"
+      checkable
+      :checked-rows.sync="selectedLogs"
       :hoverable="isHoverable"
       :loading="isLoading"
       :focusable="isFocusable"
@@ -49,19 +51,6 @@
       aria-current-label="Página Atual"
     >
       <template slot-scope="props">
-        <b-table-column>
-          <div>
-            <label class="person-checkbox">
-              <input
-                class="hand-pointer"
-                v-model="selectedLogs"
-                :value="props.row.id"
-                type="checkbox"
-              />
-              <span class="checkbox"></span>
-            </label>
-          </div>
-        </b-table-column>
         <b-table-column
           field="level"
           sortable
@@ -202,19 +191,19 @@ export default {
   methods: {
     ...mapActions('Logs', ['deleteLogs', 'deleteListLogs']),
     onClickShowActionModal(log, action) {
-      this.logAction = log;
+      this.logAction = log ? log : {};
       this.activeActionModal = action;
     },
     onClickAction(action) {
-      if (this.logAction) {
+      if (this.logAction?.id) {
         if (action === 'excluir') {
-          this.deleteLogs({ id: this.logAction });
+          this.deleteLogs({ id: this.logAction.id });
         } else {
           console.log('Arquivar');
         }
       } else {
         if (action === 'excluir todos') {
-          this.deleteListLogs(this.selectedLogs);
+          this.deleteListLogs(this.selectedLogs.map(log => log.id));
         } else {
           console.log('Arquivar todos');
         }
