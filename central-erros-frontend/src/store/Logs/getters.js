@@ -82,11 +82,6 @@ const debugByMonth = ({ logs }) => {
   return monthArray;
 };
 
-const logsIds = ({ logs }) =>
-  logs.map(log => {
-    return log.id;
-  });
-
 const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
   var formatedLogs = logs.map(log => {
     log.data = moment(log.data).format('DD/MM/YYYY');
@@ -189,7 +184,6 @@ const qtdDebugsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
 const totalLogs = ({ logs }) => logs.length;
 
 export default {
-  logsIds,
   formatLogs,
   filteredLogs,
   devByYear,

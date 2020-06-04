@@ -6,7 +6,7 @@
         <div>
           <h2 v-html="defineText"></h2>
 
-          <div class="details-log" v-if="log">
+          <div class="details-log" v-if="log.id">
             <h1 class="title">
               Erro no {{ log.origem }} em <span> {{ log.data }}</span>
             </h1>

@@ -5,10 +5,8 @@ export const loadLogs = async () => {
   return await axios.get(`${api}/log`);
 };
 
-export const deleteLogs = async (id, userToken) => {
-  const headers = { Authorization: `Bearer ${userToken}` };
-
-  return await axios.delete(`${api}/log/${id}`, { headers });
+export const deleteLogs = async id => {
+  return await axios.delete(`${api}/log/${id}`);
 };
 
 export const deleteSelectLogs = async idListLogs => {
