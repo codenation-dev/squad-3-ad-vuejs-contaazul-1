@@ -6,7 +6,7 @@
         <button @click="$emit('close')" class="close-modal" aria-label="close">
           x
         </button>
-        <div class="details-log">
+        <div class="details-log right-side">
           <div>
             <h1 class="title">
               Erro no {{ log.origem }} em <span>{{ log.data }}</span>
@@ -66,7 +66,7 @@ export default {
 @import '@/styles/style-utils.scss';
 .vertical-hr {
   background: #b8b8b8;
-  width: 1px;
+  width: 3px;
   border-radius: 100%;
   margin: 0 9px;
   height: 80%;
@@ -99,11 +99,7 @@ export default {
     }
   }
 }
-.modal-background {
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-  background-color: rgba(12, 12, 12, 0.42);
-}
+
 .modal-card {
   width: 70vw;
   height: 70vh;
@@ -111,13 +107,20 @@ export default {
   border: none;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   font-family: 'Open Sans', sans-serif;
-
+  background: white;
+  transition: all 0.4s;
+  .border-table {
+    border: none;
+    border-radius: unset;
+  }
   .modal-card-body {
     display: flex;
     flex-direction: row;
     flex: auto;
     height: 100%;
     align-items: center;
+    padding: 10px;
+    margin: 20px;
     > div {
       display: flex;
       flex-direction: column;
@@ -128,7 +131,19 @@ export default {
         width: 100%;
 
         &.left-side {
-          width: 30%;
+          width: 40%;
+          padding-right: 10px;
+          height: 100%;
+          overflow: auto;
+          .info-log-details {
+            height: 100%;
+          }
+        }
+
+        &.right-side {
+          overflow: auto;
+          justify-content: flex-start;
+          height: 100%;
         }
       }
     }
@@ -137,7 +152,7 @@ export default {
       top: 0;
       right: 5px;
       font-size: 20px;
-      font-weight: 300;
+      font-weight: 400;
       font-family: 'Open Sans', sans-serif;
       border: navajowhite;
       background: no-repeat;
@@ -150,20 +165,55 @@ export default {
       }
     }
   }
+
+  @media screen and (max-width: 1023px) {
+    width: 80vw;
+    height: 90vh;
+    transition: all 0.4s;
+
+    .modal-card-body {
+      flex-direction: column;
+      display: block;
+
+      > div {
+        overflow: initial;
+      }
+      .vertical-hr {
+        height: 3px;
+        width: 80%;
+        margin: auto;
+      }
+      .details-log {
+        height: auto !important;
+        &.left-side {
+          width: 100% !important;
+        }
+      }
+      .label-level {
+        span {
+          width: 100%;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    width: 90vw;
+  }
 }
 .label-level {
   > div {
     display: flex;
     justify-content: initial;
+    width: 85px;
   }
   span {
     border: 1.5px solid;
     color: $blue-system;
     background: $lightblue-system;
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 2px 4px;
     display: flex;
-    width: 65%;
+    width: 100%;
     justify-content: center;
     line-height: 1;
   }

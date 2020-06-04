@@ -42,6 +42,7 @@
       :default-sort-direction="defaultSortDirection"
       :sort-icon="sortIcon"
       :sort-icon-size="sortIconSize"
+      default-sort="data"
       aria-next-label="Próxima Página"
       aria-previous-label="Página Anterior"
       aria-page-label="Página"
@@ -79,7 +80,13 @@
           </div>
         </b-table-column>
 
-        <b-table-column field="titulo" label="Descrição" sortable>
+        <b-table-column
+          field="titulo"
+          label="Descrição"
+          sortable
+          class="descricao-bloco"
+          width="40"
+        >
           <div @click="onClickDetails(props.row)">
             {{ props.row.titulo }}
           </div>
@@ -97,20 +104,20 @@
           </div>
         </b-table-column>
 
-        <b-table-column label="Evento" field="frequencia" sortable>
+        <b-table-column label="Evento" field="frequencia" sortable width="60">
           <div @click="onClickDetails(props.row)">
             <span>
               {{ props.row.frequencia }}
             </span>
           </div>
         </b-table-column>
-        <b-table-column label="" class="action-buttons">
+        <b-table-column label="" class="action-buttons" width="40">
           <div>
             <span
               class="hand-pointer"
               title="Arquivar"
               v-if="verifySelectedLog(props.row.id)"
-              @click="onClickShowActionModal(props.row.id, 'arquivar')"
+              @click="onClickShowActionModal(props.row, 'arquivar')"
             >
               <span class="lnr lnr-enter"></span>
             </span>
@@ -118,7 +125,7 @@
               class="hand-pointer"
               title="Deletar"
               v-if="verifySelectedLog(props.row.id)"
-              @click="onClickShowActionModal(props.row.id, 'excluir')"
+              @click="onClickShowActionModal(props.row, 'excluir')"
             >
               <span class="lnr lnr-trash"></span>
             </span>
@@ -144,6 +151,7 @@
     />
     <action-modal
       v-if="activeActionModal != null"
+      :log="logAction"
       :action="activeActionModal"
       @close="activeActionModal = null"
       @continue="onClickAction"
@@ -193,8 +201,8 @@ export default {
 
   methods: {
     ...mapActions('Logs', ['deleteLogs', 'deleteListLogs']),
-    onClickShowActionModal(id, action) {
-      this.logAction = id;
+    onClickShowActionModal(log, action) {
+      this.logAction = log;
       this.activeActionModal = action;
     },
     onClickAction(action) {
@@ -243,7 +251,7 @@ export default {
     border: 1.5px solid;
     color: $blue-system;
     background: $lightblue-system;
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 2px 4px;
     display: flex;
     width: 100%;
@@ -297,13 +305,15 @@ export default {
     justify-content: center;
   }
 }
+.descricao-bloco {
+  div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 22vh;
 
-.personal-table {
-  & td {
-    padding: 0;
-    > div {
-      cursor: pointer;
-      padding: 8px 12px;
+    @media screen and (max-width: 768px) {
+      width: 55vw;
     }
   }
 }
