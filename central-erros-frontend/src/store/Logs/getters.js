@@ -87,12 +87,7 @@ const logsIds = ({ logs }) =>
     return log.id;
   });
 
-const formatLogs = ({
-  logs,
-  filterColumnListLogs,
-  filterSearchLog,
-  currentLogPage,
-}) => {
+const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
   var formatedLogs = logs.map(log => {
     log.data = moment(log.data).format('DD/MM/YYYY');
     if (log.level == tipo.debug) {
@@ -131,10 +126,10 @@ const formatLogs = ({
     }
   });
 
-  return logsSpecificColumn.splice((currentLogPage - 1) * 10, 10);
+  return logsSpecificColumn;
 };
 
-const filteredLogs = ({ filterLogsLevel, currentLogPage }, getters) => {
+const filteredLogs = ({ filterLogsLevel }, getters) => {
   var arrayFiltered = [];
   filterLogsLevel.forEach(level => {
     getters.formatLogs.forEach(log => {
@@ -143,7 +138,7 @@ const filteredLogs = ({ filterLogsLevel, currentLogPage }, getters) => {
       }
     });
   });
-  return arrayFiltered.splice((currentLogPage - 1) * 10, 10);
+  return arrayFiltered;
 };
 
 const qtdErrorsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>

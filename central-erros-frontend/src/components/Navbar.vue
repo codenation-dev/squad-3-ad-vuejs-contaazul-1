@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <nav class="navbar nav-color is-fixed-top">
+  <!-- <div class="menu-nav">
+    <nav class="navbar nav-color">
       <div class="nav-content">
         <div class="nav-left">
           <div
@@ -33,7 +33,29 @@
         </div>
       </div>
     </nav>
-  </div>
+  </div> -->
+  <b-navbar class="menu-nav nav-color">
+    <template slot="start">
+      <b-navbar-item
+        v-for="route in routes"
+        :key="route.path"
+        :class="{
+          'current-tab': activeRoute === route.path,
+        }"
+      >
+        <router-link :to="route.path">
+          <span class="label">{{ route.name }}</span>
+        </router-link>
+      </b-navbar-item>
+    </template>
+    <template slot="end">
+      <b-navbar-dropdown :label="user.email">
+        <b-navbar-item href="javascript:void(0)" @click="onLogout">
+          Logout
+        </b-navbar-item>
+      </b-navbar-dropdown>
+    </template>
+  </b-navbar>
 </template>
 
 <script>
@@ -90,35 +112,64 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/style-utils.scss';
+.menu-nav {
+  position: sticky;
+  top: 0;
+  z-index: 9;
+}
 .nav-color {
   background-color: #1a2e69;
-}
 
-.label {
-  font-weight: bolder;
-}
-
-.nav-content {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-
-  .nav-left {
-    display: flex;
-    width: 30%;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .nav-right {
-    display: flex;
-    width: 30%;
-    align-items: center;
-    justify-content: flex-end;
+  @media screen and (min-width: 1023px) {
+    padding: 0px 18%;
   }
 }
-
-.current-tab {
+.current-tab a {
   border-bottom: 3px solid #fff;
+  transition: all 0.4s;
+}
+
+.navbar-item {
+  &::after {
+    content: '';
+    display: flex;
+    height: 3px;
+    width: 0%;
+    background: white;
+    position: absolute;
+    bottom: 23%;
+    transition: all 0.4s;
+  }
+  &:hover,
+  &:focus,
+  &:focus-within {
+    background: unset;
+  }
+
+  &:hover {
+    background: unset;
+    &::after {
+      width: 50%;
+      transition: all 0.4s;
+    }
+    &.current-tab a {
+      border-color: transparent;
+      transition: all 0.4s;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .has-text-light {
+      color: $blue-system !important;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    &.has-dropdown {
+      &:hover {
+        background: none;
+      }
+    }
+  }
 }
 </style>
