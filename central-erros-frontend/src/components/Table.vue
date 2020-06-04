@@ -74,26 +74,26 @@
           label="Descrição"
           sortable
           class="descricao-bloco"
-          width="40"
+          width="auto"
         >
           <div @click="onClickDetails(props.row)">
             {{ props.row.titulo }}
           </div>
         </b-table-column>
 
-        <b-table-column field="origem" label="Origem" sortable>
+        <b-table-column field="origem" label="Origem" sortable width="40">
           <div @click="onClickDetails(props.row)">
             {{ props.row.origem }}
           </div>
         </b-table-column>
 
-        <b-table-column field="data" label="Data" sortable>
+        <b-table-column field="data" label="Data" sortable width="40">
           <div @click="onClickDetails(props.row)">
             {{ props.row.data }}
           </div>
         </b-table-column>
 
-        <b-table-column label="Evento" field="frequencia" sortable width="60">
+        <b-table-column label="Evento" field="frequencia" sortable width="40">
           <div @click="onClickDetails(props.row)">
             <span>
               {{ props.row.frequencia }}
@@ -237,7 +237,6 @@ export default {
     justify-content: center;
   }
   span {
-    border: 1.5px solid;
     color: $blue-system;
     background: $lightblue-system;
     border-radius: 4px;
@@ -246,6 +245,7 @@ export default {
     width: 100%;
     justify-content: center;
     line-height: 1;
+    box-shadow: 0px 0px 5px 0px;
   }
   &.warning {
     span {

@@ -2,13 +2,13 @@
 
 // color
 $blue-system: #1a2e69;
-$lightblue-system: #D1ECF1;
-$lightyellow-system: #FFF3CD;
-$brown-system: #5A4226;
+$lightblue-system: #d1ecf1;
+$lightyellow-system: #fff3cd;
+$brown-system: #5a4226;
 $red-system: #a10003;
-$lightred-system: #FFC5C7;
+$lightred-system: #ffc5c7;
 $gray-system: #737373;
-$lightgray-system:#E9E9E9;
+$lightgray-system: #e9e9e9;
 
 body,
 #app {
@@ -56,13 +56,13 @@ body,
 .purple-default {
   background-color: #1a2e69 !important;
   color: white !important;
-  transition: all .4s;
+  transition: all 0.4s;
 }
 
 .red-default {
   background-color: #a10000 !important;
   color: white !important;
-  transition: all .4s;
+  transition: all 0.4s;
 }
 
 .gray-default {
@@ -161,8 +161,8 @@ button {
   label {
     padding: 0px 12px 0px 0px;
 
-    input[type="checkbox"] {
-      ~span {
+    input[type='checkbox'] {
+      ~ span {
         &.checkbox {
           margin-right: 5px;
         }
@@ -176,13 +176,13 @@ a.navbar-burger {
     color: white;
 
     span {
-      transition: all .3s;
+      transition: all 0.3s;
     }
   }
 
   &.is-active {
     span {
-      transition: all .3s;
+      transition: all 0.3s;
     }
   }
 }
@@ -192,14 +192,14 @@ a.navbar-burger {
   justify-content: center;
   align-items: center;
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     width: 20px;
     height: 20px;
     visibility: hidden;
     opacity: 0;
     position: absolute;
 
-    ~span {
+    ~ span {
       &.checkbox {
         height: 20px;
         width: 20px;
@@ -208,7 +208,7 @@ a.navbar-burger {
         align-items: center;
         background: white;
         border-radius: 4px;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, .51);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.51);
         position: relative;
 
         &::after {
@@ -222,18 +222,18 @@ a.navbar-burger {
           transform: rotate(45deg);
           top: 0;
           position: absolute;
-          transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) all .2s;
+          transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) all 0.2s;
         }
       }
     }
 
     &:checked {
-      ~span {
+      ~ span {
         &.checkbox {
           &::after {
             border-width: 0px 3px 3px 0px;
             color: $blue-system;
-            transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) all .2s;
+            transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) all 0.2s;
           }
         }
       }
@@ -311,7 +311,7 @@ a.navbar-burger {
       padding: 8px 12px;
     }
 
-    >div {
+    > div {
       cursor: pointer;
       padding: 8px 12px;
 
@@ -322,7 +322,7 @@ a.navbar-burger {
   }
 
   & tr {
-    >th {
+    > th {
       background: $lightgray-system;
 
       &:nth-child(1) {
@@ -340,4 +340,93 @@ a.navbar-burger {
   -webkit-backdrop-filter: blur(2px) !important;
   backdrop-filter: blur(2px) !important;
   background-color: rgba(12, 12, 12, 0.42) !important;
+}
+
+.b-checkbox {
+  &.checkbox {
+    margin: auto !important;
+
+    @media screen and (max-width: 768px) {
+      margin: unset !important;
+    }
+
+    input[type='checkbox'] {
+      width: 20px;
+      height: 20px;
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+
+      + .check {
+        background: white !important;
+        width: 20px !important;
+        height: 20px !important;
+        border: none !important;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.51);
+
+        &::after {
+          content: '';
+          height: 15px;
+          width: 8px;
+          display: flex;
+          border-width: 0;
+          justify-content: center;
+          border-style: solid;
+          transform: rotate(45deg);
+          top: 0;
+          position: absolute;
+          left: 6px;
+          transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) all 0.2s;
+        }
+      }
+
+      &:checked {
+        + .check {
+          &::after {
+            border-width: 0px 3px 3px 0px;
+            color: $blue-system;
+            transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) all 0.2s;
+          }
+        }
+      }
+    }
+  }
+}
+
+.pagination-list {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid lightgray;
+
+  .pagination-ellipsis {
+    margin: 0;
+  }
+
+  li {
+    .pagination-link {
+      border-radius: 50%;
+      margin: 0;
+      border: none;
+
+      &.is-current {
+        background-color: white;
+        color: #363636;
+        border: none;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.45);
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+a.pagination-link {
+  border-radius: 50%;
+  margin: 0;
+  &.pagination-previous {
+    margin: 5px;
+  }
+}
+
+.level {
+  justify-content: center !important;
 }
