@@ -8,9 +8,11 @@ $brown-system: #5A4226;
 $red-system: #a10003;
 $lightred-system: #FFC5C7;
 $gray-system: #737373;
+$lightgray-system:#E9E9E9;
 
-body {
-  font-family: 'Open Sans', sans-serif !important;
+body,
+#app {
+  font-family: 'Open Sans', sans-serif;
 }
 
 .is-width-100 {
@@ -54,11 +56,13 @@ body {
 .purple-default {
   background-color: #1a2e69 !important;
   color: white !important;
+  transition: all .4s;
 }
 
 .red-default {
   background-color: #a10000 !important;
   color: white !important;
+  transition: all .4s;
 }
 
 .gray-default {
@@ -292,4 +296,48 @@ a.navbar-burger {
       }
     }
   }
+}
+
+.b-table .table {
+  border: 1px solid #dbdbdb !important;
+  border-radius: 10px !important;
+}
+
+.personal-table {
+  & td {
+    padding: 0;
+
+    @media screen and (max-width: 768px) {
+      padding: 8px 12px;
+    }
+
+    >div {
+      cursor: pointer;
+      padding: 8px 12px;
+
+      @media screen and (max-width: 768px) {
+        padding: 0;
+      }
+    }
+  }
+
+  & tr {
+    >th {
+      background: $lightgray-system;
+
+      &:nth-child(1) {
+        border-top-left-radius: 10px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 10px;
+      }
+    }
+  }
+}
+
+.modal-background {
+  -webkit-backdrop-filter: blur(2px) !important;
+  backdrop-filter: blur(2px) !important;
+  background-color: rgba(12, 12, 12, 0.42) !important;
 }

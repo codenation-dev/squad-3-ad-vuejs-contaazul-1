@@ -163,6 +163,9 @@ export default {
 .filter-word {
   flex-direction: row;
   > div {
+    &:first-child {
+      width: 120px;
+    }
     &:nth-child(2) {
       flex: auto;
     }
