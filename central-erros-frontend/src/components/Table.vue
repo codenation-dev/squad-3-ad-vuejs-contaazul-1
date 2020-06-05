@@ -194,7 +194,7 @@ export default {
       this.logAction = log ? log : {};
       this.activeActionModal = action;
     },
-    onClickAction(action) {
+    async onClickAction(action) {
       if (this.logAction?.id) {
         if (action === 'excluir') {
           this.deleteLogs({ id: this.logAction.id });
@@ -203,7 +203,7 @@ export default {
         }
       } else {
         if (action === 'excluir todos') {
-          this.deleteListLogs(this.selectedLogs.map(log => log.id));
+          await this.deleteListLogs(this.selectedLogs.map(log => log.id));
           this.selectedLogs = [];
         } else {
           console.log('Arquivar todos');
