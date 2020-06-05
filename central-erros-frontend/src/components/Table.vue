@@ -71,7 +71,7 @@
 
         <b-table-column
           field="titulo"
-          label="Descrição"
+          label="Título"
           sortable
           class="descricao-bloco"
           width="auto"
@@ -194,7 +194,7 @@ export default {
       this.logAction = log ? log : {};
       this.activeActionModal = action;
     },
-    onClickAction(action) {
+    async onClickAction(action) {
       if (this.logAction?.id) {
         if (action === 'excluir') {
           this.deleteLogs({ id: this.logAction.id });
@@ -203,7 +203,8 @@ export default {
         }
       } else {
         if (action === 'excluir todos') {
-          this.deleteListLogs(this.selectedLogs.map(log => log.id));
+          await this.deleteListLogs(this.selectedLogs.map(log => log.id));
+          this.selectedLogs = [];
         } else {
           console.log('Arquivar todos');
         }
@@ -213,7 +214,7 @@ export default {
       this.logAction = null;
     },
     verifySelectedLog(idLog) {
-      return !this.selectedLogs.find(id => idLog == id);
+      return !this.selectedLogs.find(log => idLog == log.id);
     },
     onClickDetails(log) {
       this.selectedLogDetails = log;
