@@ -101,14 +101,17 @@ const formatLogsArchived = ({
   );
 };
 
-const filteredLogs = ({ filterLogsLevel }, getters) => {
-  return genericFilteredLogs(filterLogsLevel, getters).filter(
+const filteredLogs = ({ filterLogsLevel }, { formatLogs }) => {
+  return genericFilteredLogs(filterLogsLevel, formatLogs).filter(
     log => !log.arquivado,
   );
 };
 
-const filteredLogsArchived = ({ filterLogsArchived }, getters) => {
-  return genericFilteredLogs(filterLogsArchived, getters);
+const filteredLogsArchived = (
+  { filterLogsLevelArchived },
+  { formatLogsArchived },
+) => {
+  return genericFilteredLogs(filterLogsLevelArchived, formatLogsArchived);
 };
 
 const qtdErrorsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>

@@ -99,7 +99,7 @@ export default {
         },
         {
           id: 1,
-          name: 'Descrição',
+          name: 'Título',
         },
         {
           id: 2,
