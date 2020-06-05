@@ -84,7 +84,9 @@ const debugByMonth = ({ logs }) => {
 };
 
 const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
-  return genericFormatLogs(logs, filterColumnListLogs, filterSearchLog);
+  return genericFormatLogs(logs, filterColumnListLogs, filterSearchLog).filter(
+    log => !log.arquivado,
+  );
 };
 
 const formatLogsArchived = ({
@@ -100,7 +102,9 @@ const formatLogsArchived = ({
 };
 
 const filteredLogs = ({ filterLogsLevel }, getters) => {
-  return genericFilteredLogs(filterLogsLevel, getters);
+  return genericFilteredLogs(filterLogsLevel, getters).filter(
+    log => !log.arquivado,
+  );
 };
 
 const filteredLogsArchived = ({ filterLogsArchived }, getters) => {

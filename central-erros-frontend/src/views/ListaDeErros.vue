@@ -67,15 +67,9 @@
       </div>
     </div>
     <lista-de-logs
-      :log-list="logList"
-      :botao-arquivar-visivel="true"
-      v-if="!arquivados"
-    ></lista-de-logs>
-    <lista-de-logs
-      :log-list="archivedLogList"
-      :botao-arquivar-visivel="false"
-      v-else
-    ></lista-de-logs>
+      :log-list="arquivados ? archivedLogList : logList"
+      :botao-arquivar-visivel="!arquivados"
+    />
   </div>
 </template>
 
@@ -123,14 +117,11 @@ export default {
     };
   },
   async created() {
-    this.$nextTick(function() {
-      console.log('hello-world');
-      if (!this.arquivados) {
-        this.loadLogs();
-      } else {
-        this.loadLogsArchived();
-      }
-    });
+    if (this.arquivados) {
+      this.loadLogsArchived();
+    } else {
+      this.loadLogs();
+    }
   },
   computed: {
     ...mapGetters('Logs', [

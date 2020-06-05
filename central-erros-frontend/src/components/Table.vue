@@ -106,7 +106,7 @@
             <span
               class="hand-pointer"
               title="Arquivar"
-              v-if="verifySelectedLog(props.row.id)"
+              v-if="verifySelectedLog(props.row.id) && botaoArquivarVisivel"
               @click="onClickShowActionModal(props.row, 'arquivar')"
             >
               <span class="lnr lnr-enter"></span>
@@ -191,7 +191,12 @@ export default {
   },
 
   methods: {
-    ...mapActions('Logs', ['deleteLogs', 'deleteListLogs']),
+    ...mapActions('Logs', [
+      'arquivarLog',
+      'arquivarLogsList',
+      'deleteLog',
+      'deleteListLogs',
+    ]),
     onClickShowActionModal(log, action) {
       this.logAction = log ? log : {};
       this.activeActionModal = action;
@@ -199,17 +204,17 @@ export default {
     async onClickAction(action) {
       if (this.logAction?.id) {
         if (action === 'excluir') {
-          this.deleteLogs({ id: this.logAction.id });
+          this.deleteLog(this.logAction.id);
         } else {
-          console.log('Arquivar');
+          this.arquivarLog(this.logAction.id);
         }
       } else {
         if (action === 'excluir todos') {
           await this.deleteListLogs(this.selectedLogs.map(log => log.id));
-          this.selectedLogs = [];
         } else {
-          console.log('Arquivar todos');
+          await this.arquivarLogsList(this.selectedLogs.map(log => log.id));
         }
+        this.selectedLogs = [];
       }
 
       this.activeActionModal = null;
