@@ -12,5 +12,6 @@ namespace CentralErrosApi.Data
         Task<List<Log>> Get();
         Task<List<Log>> GetArquivados();
         void Update(Log log);
+        void ArquivarAll(List<int> ids);
     }
 }
