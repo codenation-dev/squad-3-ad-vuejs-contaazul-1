@@ -1,6 +1,7 @@
 import {
   loadLogs as loadLogsService,
   deleteLogs as deleteLogsService,
+  loadLogsArchived as loadLogsArchivedService,
   deleteSelectLogs,
 } from '@/services/log';
 
@@ -33,6 +34,28 @@ const resetLogs = ({ commit }) => {
   commit('SET_LOGS', []);
 };
 
+const loadLogsArchived = async ({ commit }) => {
+  const { data } = await loadLogsArchivedService();
+  if (data.length) {
+    commit('SET_LOGS_ARCHIVED', data);
+  }
+};
+
+const addFilterLevelArchived = ({ commit }, listLevel) => {
+  commit('SET_FILTER_LEVEL_ARCHIVED', listLevel);
+};
+
+const addFilterColumnArchived = ({ commit }, filter) => {
+  commit('SET_FILTER_COLUMN_ARCHIVED', {
+    column: filter.column,
+    search: filter.search,
+  });
+};
+
+const resetLogsArchived = ({ commit }) => {
+  commit('SET_LOGS_ARCHIVED', []);
+};
+
 export default {
   loadLogs,
   deleteLogs,
@@ -40,4 +63,8 @@ export default {
   addFilterLevel,
   addFilterColumn,
   resetLogs,
+  loadLogsArchived,
+  addFilterLevelArchived,
+  addFilterColumnArchived,
+  resetLogsArchived,
 };

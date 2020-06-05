@@ -66,7 +66,16 @@
         </div>
       </div>
     </div>
-    <lista-de-logs :log-list="logList"></lista-de-logs>
+    <lista-de-logs
+      :log-list="logList"
+      :botao-arquivar-visivel="true"
+      v-if="!arquivados"
+    ></lista-de-logs>
+    <lista-de-logs
+      :log-list="archivedLogList"
+      :botao-arquivar-visivel="false"
+      v-else
+    ></lista-de-logs>
   </div>
 </template>
 
@@ -80,6 +89,9 @@ export default {
   components: {
     ListaDeLogs,
     Multiselect,
+  },
+  props: {
+    arquivados: Boolean,
   },
   data() {
     return {
@@ -111,10 +123,23 @@ export default {
     };
   },
   async created() {
-    await this.loadLogs();
+    this.$nextTick(function() {
+      console.log('hello-world');
+      if (!this.arquivados) {
+        this.loadLogs();
+      } else {
+        this.loadLogsArchived();
+      }
+    });
   },
   computed: {
-    ...mapGetters('Logs', ['formatLogs', 'filteredLogs', 'totalLogs']),
+    ...mapGetters('Logs', [
+      'formatLogs',
+      'filteredLogs',
+      'totalLogs',
+      'formatLogsArchived',
+      'filteredLogsArchived',
+    ]),
     ...mapState('Logs', ['currentLogPage']),
 
     logList() {
@@ -129,9 +154,28 @@ export default {
 
       return this.formatLogs;
     },
+    archivedLogList() {
+      this.addFilterColumnArchived({
+        column: this.filterColumnListLogs,
+        search: this.filterSearch,
+      });
+      if (this.filterLevel.length != 0) {
+        this.addFilterLevelArchived(this.filterLevel);
+        return this.filteredLogsArchived;
+      }
+
+      return this.formatLogsArchived;
+    },
   },
   methods: {
-    ...mapActions('Logs', ['loadLogs', 'addFilterLevel', 'addFilterColumn']),
+    ...mapActions('Logs', [
+      'loadLogs',
+      'addFilterLevel',
+      'addFilterColumn',
+      'loadLogsArchived',
+      'addFilterLevelArchived',
+      'addFilterColumnArchived',
+    ]),
     ...mapMutations('Logs', ['setCurrentLogPage']),
 
     customLabelName: function(obj) {

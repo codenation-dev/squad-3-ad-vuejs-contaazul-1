@@ -17,3 +17,7 @@ export const deleteSelectLogs = async idListLogs => {
 
   return await axios.delete(`${api}/log/deleteAll/?ids=${idListLogQuery}`);
 };
+
+export const loadLogsArchived = async () => {
+  return await axios.get(`${api}/log/arquivados`);
+};

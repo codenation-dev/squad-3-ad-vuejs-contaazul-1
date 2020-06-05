@@ -9,6 +9,7 @@
                 class=" button purple-default mr-1em"
                 @click="onClickShowActionModal(false, 'arquivar todos')"
                 :disabled="selectedLogs.length == 0"
+                v-show="botaoArquivarVisivel"
               >
                 ARQUIVAR
               </button>
@@ -155,6 +156,7 @@ import ActionModal from './ActionModal';
 export default {
   props: {
     logList: Array,
+    botaoArquivarVisivel: Boolean,
   },
   components: {
     LogModal,
