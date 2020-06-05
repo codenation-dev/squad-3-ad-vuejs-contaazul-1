@@ -95,11 +95,11 @@ export default {
       columnListLogs: [
         {
           id: 0,
-          name: 'Level',
+          name: 'Status',
         },
         {
           id: 1,
-          name: 'Descrição',
+          name: 'Título',
         },
         {
           id: 2,

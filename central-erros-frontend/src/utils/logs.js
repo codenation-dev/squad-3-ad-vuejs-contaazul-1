@@ -20,11 +20,11 @@ export const genericFormatLogs = (
 
   var logsSpecificColumn = formatedLogs.filter(log => {
     if (filterColumnListLogs != null) {
-      if (filterColumnListLogs.name == 'Level') {
+      if (filterColumnListLogs.name == 'Status') {
         return log.level.toLowerCase().includes(filterSearchLog.toLowerCase());
       }
 
-      if (filterColumnListLogs.name == 'Descrição') {
+      if (filterColumnListLogs.name == 'Título') {
         return log.titulo.toLowerCase().includes(filterSearchLog.toLowerCase());
       }
 
@@ -47,11 +47,11 @@ export const genericFormatLogs = (
   return logsSpecificColumn;
 };
 
-export const genericFilteredLogs = (filterLogsLevel, getters) => {
+export const genericFilteredLogs = (filterLogsLevel, formatLogs) => {
   var arrayFiltered = [];
   if (filterLogsLevel && filterLogsLevel.length > 0) {
     filterLogsLevel.forEach(level => {
-      getters.formatLogs.forEach(log => {
+      formatLogs.forEach(log => {
         if (log.local == level) {
           arrayFiltered.push(log);
         }
