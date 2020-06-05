@@ -422,6 +422,7 @@ a.navbar-burger {
 a.pagination-link {
   border-radius: 50%;
   margin: 0;
+
   &.pagination-previous {
     margin: 5px;
   }
@@ -429,4 +430,16 @@ a.pagination-link {
 
 .level {
   justify-content: center !important;
+}
+
+.navbar-item {
+  &.has-dropdown {
+    > a {
+      padding-left: 0;
+
+      @media screen and (max-width: 1023px) {
+        padding-left: 12px;
+      }
+    }
+  }
 }
