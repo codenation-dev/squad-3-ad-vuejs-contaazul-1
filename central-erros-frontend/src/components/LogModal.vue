@@ -163,6 +163,10 @@ export default {
         opacity: 1;
         transition: all 0.4s;
       }
+      &:focus-within,
+      &:focus {
+        outline: none;
+      }
     }
   }
 

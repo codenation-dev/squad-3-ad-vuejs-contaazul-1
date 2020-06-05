@@ -1,39 +1,4 @@
 <template>
-  <!-- <div class="menu-nav">
-    <nav class="navbar nav-color">
-      <div class="nav-content">
-        <div class="nav-left">
-          <div
-            v-for="route in routes"
-            :key="route.path"
-            :class="{
-              'current-tab': activeRoute === route.path,
-            }"
-          >
-            <router-link :to="route.path">
-              <span class="label has-text-light">{{ route.name }}</span>
-            </router-link>
-          </div>
-        </div>
-        <div class="nav-right">
-          <div class="dropdown is-right is-active">
-            <div class="dropdown-trigger">
-              <a @click="showDropdown = !showDropdown">
-                <span class="has-text-light">{{ user.email }}</span>
-              </a>
-            </div>
-            <div v-if="showDropdown" class="dropdown-menu" role="menu">
-              <div class="dropdown-content">
-                <a @click="onLogout" class="dropdown-item">
-                  Logout
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div> -->
   <b-navbar class="menu-nav nav-color">
     <template slot="start">
       <b-navbar-item
@@ -121,7 +86,7 @@ export default {
 .nav-color {
   background-color: #1a2e69;
 
-  @media screen and (min-width: 1023px) {
+  @media screen and (min-width: 1024px) {
     padding: 0px 18%;
   }
 }
@@ -145,6 +110,7 @@ export default {
   &:focus,
   &:focus-within {
     background: unset;
+    outline: none !important;
   }
 
   &:hover {
@@ -169,6 +135,13 @@ export default {
       &:hover {
         background: none;
       }
+    }
+  }
+
+  &.has-dropdown {
+    &:focus,
+    &:focus-within {
+      outline: none;
     }
   }
 }
