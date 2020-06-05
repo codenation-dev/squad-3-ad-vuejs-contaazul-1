@@ -20,7 +20,7 @@ export const genericFormatLogs = (
 
   var logsSpecificColumn = formatedLogs.filter(log => {
     if (filterColumnListLogs != null) {
-      if (filterColumnListLogs.name == 'Level') {
+      if (filterColumnListLogs.name == 'Status') {
         return log.level.toLowerCase().includes(filterSearchLog.toLowerCase());
       }
 

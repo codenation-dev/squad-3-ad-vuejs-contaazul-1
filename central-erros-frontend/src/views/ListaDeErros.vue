@@ -95,7 +95,7 @@ export default {
       columnListLogs: [
         {
           id: 0,
-          name: 'Level',
+          name: 'Status',
         },
         {
           id: 1,
