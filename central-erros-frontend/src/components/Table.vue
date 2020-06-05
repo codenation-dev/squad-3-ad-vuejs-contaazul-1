@@ -100,7 +100,7 @@
             </span>
           </div>
         </b-table-column>
-        <b-table-column label="" class="action-buttons" width="40">
+        <b-table-column label="Ações" class="action-buttons" width="40">
           <div>
             <span
               class="hand-pointer"
