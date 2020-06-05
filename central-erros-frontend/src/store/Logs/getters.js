@@ -1,4 +1,5 @@
 import { tipo, local } from '@/utils/constants';
+import { genericFormatLogs, genericFilteredLogs } from '@/utils/logs';
 import moment from 'moment';
 
 const devByYear = ({ logs }) => {
@@ -83,57 +84,31 @@ const debugByMonth = ({ logs }) => {
 };
 
 const formatLogs = ({ logs, filterColumnListLogs, filterSearchLog }) => {
-  var formatedLogs = logs.map(log => {
-    log.data = moment(log.data).format('DD/MM/YYYY');
-    if (log.level == tipo.debug) {
-      log.level = 'debug';
-    } else if (log.level == tipo.warning) {
-      log.level = 'warning';
-    } else if (log.level == tipo.error) {
-      log.level = 'error';
-    }
-    return log;
-  });
+  return genericFormatLogs(logs, filterColumnListLogs, filterSearchLog).filter(
+    log => !log.arquivado,
+  );
+};
 
-  var logsSpecificColumn = formatedLogs.filter(log => {
-    if (filterColumnListLogs != null) {
-      if (filterColumnListLogs.name == 'Level') {
-        return log.level.toLowerCase().includes(filterSearchLog.toLowerCase());
-      }
-
-      if (filterColumnListLogs.name == 'Descrição') {
-        return log.titulo.toLowerCase().includes(filterSearchLog.toLowerCase());
-      }
-
-      if (filterColumnListLogs.name == 'Origem') {
-        return log.origem.toLowerCase().includes(filterSearchLog.toLowerCase());
-      }
-
-      if (filterColumnListLogs.name == 'Data') {
-        return log.data.includes(filterSearchLog);
-      }
-
-      if (filterColumnListLogs.name == 'Evento') {
-        return log.frequencia.toString().includes(filterSearchLog);
-      }
-    } else {
-      return log;
-    }
-  });
-
-  return logsSpecificColumn;
+const formatLogsArchived = ({
+  logsArchived,
+  filterColumnListLogsArchived,
+  filterSearchLogArchived,
+}) => {
+  return genericFormatLogs(
+    logsArchived,
+    filterColumnListLogsArchived,
+    filterSearchLogArchived,
+  );
 };
 
 const filteredLogs = ({ filterLogsLevel }, getters) => {
-  var arrayFiltered = [];
-  filterLogsLevel.forEach(level => {
-    getters.formatLogs.forEach(log => {
-      if (log.local == level) {
-        arrayFiltered.push(log);
-      }
-    });
-  });
-  return arrayFiltered;
+  return genericFilteredLogs(filterLogsLevel, getters).filter(
+    log => !log.arquivado,
+  );
+};
+
+const filteredLogsArchived = ({ filterLogsArchived }, getters) => {
+  return genericFilteredLogs(filterLogsArchived, getters);
 };
 
 const qtdErrorsByYear = ({ logs, showDevYear, showHmlYear, showProdYear }) =>
@@ -196,4 +171,6 @@ export default {
   qtdWarningsByYear,
   qtdDebugsByYear,
   totalLogs,
+  formatLogsArchived,
+  filteredLogsArchived,
 };

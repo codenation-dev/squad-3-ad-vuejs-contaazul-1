@@ -9,6 +9,16 @@ export default {
     state.filterColumnListLogs = filter.column;
     state.filterSearchLog = filter.search;
   },
+  ['SET_LOGS_ARCHIVED'](state, logs) {
+    state.logsArchived = logs;
+  },
+  ['SET_FILTER_LEVEL_ARCHIVED'](state, listLevel) {
+    state.filterLogsLevelArchived = listLevel;
+  },
+  ['SET_FILTER_COLUMN_ARCHIVED'](state, filter) {
+    state.filterColumnListLogsArchived = filter.column;
+    state.filterSearchLogArchived = filter.search;
+  },
   ['setProdYear'](state, value) {
     state.showProdYear = value;
   },

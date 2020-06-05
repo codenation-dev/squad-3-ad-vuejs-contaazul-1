@@ -1,24 +1,43 @@
 import {
   loadLogs as loadLogsService,
-  deleteLogs as deleteLogsService,
+  loadLogsArchived as loadLogsArchivedService,
+  arquivarLog as arquivarLogService,
+  arquivarSelectLogs,
+  deleteLog as deleteLogsService,
   deleteSelectLogs,
 } from '@/services/log';
 
+import router from '@/router';
+
 const loadLogs = async ({ commit }) => {
   const { data } = await loadLogsService();
-  if (data.length) {
-    commit('SET_LOGS', data);
-  }
+  commit('SET_LOGS', data);
 };
 
-const deleteLogs = async ({ dispatch }, { id }) => {
+const deleteLog = async ({ dispatch }, id) => {
   await deleteLogsService(id);
-  dispatch('loadLogs');
+  dispatch('reloadPage');
 };
 
 const deleteListLogs = async ({ dispatch }, idListLogs) => {
   await deleteSelectLogs(idListLogs);
-  dispatch('loadLogs');
+  dispatch('reloadPage');
+};
+
+const arquivarLog = async ({ dispatch }, id) => {
+  await arquivarLogService(id);
+  dispatch('reloadPage');
+};
+
+const arquivarLogsList = async ({ dispatch }, idListLogs) => {
+  await arquivarSelectLogs(idListLogs);
+  dispatch('reloadPage');
+};
+
+const reloadPage = ({ dispatch }) => {
+  router.currentRoute.path === '/arquivados'
+    ? dispatch('loadLogsArchived')
+    : dispatch('loadLogs');
 };
 
 const addFilterLevel = ({ commit }, listLevel) => {
@@ -33,11 +52,38 @@ const resetLogs = ({ commit }) => {
   commit('SET_LOGS', []);
 };
 
+const loadLogsArchived = async ({ commit }) => {
+  const { data } = await loadLogsArchivedService();
+  commit('SET_LOGS_ARCHIVED', data);
+};
+
+const addFilterLevelArchived = ({ commit }, listLevel) => {
+  commit('SET_FILTER_LEVEL_ARCHIVED', listLevel);
+};
+
+const addFilterColumnArchived = ({ commit }, filter) => {
+  commit('SET_FILTER_COLUMN_ARCHIVED', {
+    column: filter.column,
+    search: filter.search,
+  });
+};
+
+const resetLogsArchived = ({ commit }) => {
+  commit('SET_LOGS_ARCHIVED', []);
+};
+
 export default {
   loadLogs,
-  deleteLogs,
+  deleteLog,
   deleteListLogs,
+  arquivarLog,
+  arquivarLogsList,
+  reloadPage,
   addFilterLevel,
   addFilterColumn,
   resetLogs,
+  loadLogsArchived,
+  addFilterLevelArchived,
+  addFilterColumnArchived,
+  resetLogsArchived,
 };
