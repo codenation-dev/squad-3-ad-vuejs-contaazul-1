@@ -112,5 +112,17 @@ namespace CentralErrosApi.Controllers
 
             return BadRequest();
         }
+
+        [HttpPut("arquivarAll")]
+        public async Task<IActionResult> Arquivar([FromQuery] List<int> ids)
+        {
+            _repo.ArquivarAll(ids);
+            if (await _repo.SaveChangesAsync())
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
     }
 }

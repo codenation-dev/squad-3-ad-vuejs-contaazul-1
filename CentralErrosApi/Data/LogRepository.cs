@@ -43,5 +43,16 @@ namespace CentralErrosApi.Data
         {
             return await _db.Logs.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public void ArquivarAll(List<int> ids)
+        {
+            var logs = _db.Logs.Where(x => ids.Contains(x.Id));
+
+            foreach (var log in logs)
+            {
+                log.Arquivado = true;
+                Update(log);
+            }
+        }
     }
 }
