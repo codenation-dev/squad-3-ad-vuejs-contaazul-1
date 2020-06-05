@@ -55,7 +55,7 @@
         <b-table-column
           field="level"
           sortable
-          label="Level"
+          label="Status"
           width="40"
           class="label-level"
           :class="{
