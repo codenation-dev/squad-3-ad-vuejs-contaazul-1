@@ -1,21 +1,21 @@
 export default {
-  ['SET_LOGS'](state, logs) {
+  ['setLogs'](state, logs) {
     state.logs = logs;
   },
-  ['SET_FILTER_LEVEL'](state, listLevel) {
+  ['setFilterLevel'](state, listLevel) {
     state.filterLogsLevel = listLevel;
   },
-  ['SET_FILTER_COLUMN'](state, filter) {
+  ['setFilterColumn'](state, filter) {
     state.filterColumnListLogs = filter.column;
     state.filterSearchLog = filter.search;
   },
-  ['SET_LOGS_ARCHIVED'](state, logs) {
+  ['setLogsArchived'](state, logs) {
     state.logsArchived = logs;
   },
-  ['SET_FILTER_LEVEL_ARCHIVED'](state, listLevel) {
+  ['setFilterLevelArchived'](state, listLevel) {
     state.filterLogsLevelArchived = listLevel;
   },
-  ['SET_FILTER_COLUMN_ARCHIVED'](state, filter) {
+  ['setFilterColumnArchived'](state, filter) {
     state.filterColumnListLogsArchived = filter.column;
     state.filterSearchLogArchived = filter.search;
   },
@@ -36,5 +36,8 @@ export default {
   },
   ['setDebugMonth'](state, value) {
     state.showDebugMonth = value;
+  },
+  ['setLoading'](state, value) {
+    state.isLoading = value;
   },
 };

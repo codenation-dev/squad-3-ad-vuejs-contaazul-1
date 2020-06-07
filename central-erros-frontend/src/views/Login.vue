@@ -1,5 +1,6 @@
 <template>
   <section class="hero is-fullheight">
+    <b-loading is-full-page :active.sync="isLoading" />
     <div class="hero-body">
       <div class="container">
         <div class="columns is-centered">
@@ -89,12 +90,14 @@ export default {
       showPassword: false,
       user: {},
       errorMessage: '',
+      isLoading: false,
     };
   },
   name: 'App',
   methods: {
     ...mapActions('User', ['login', 'create']),
     onSubmit() {
+      this.isLoading = true;
       if (!this.user.username || !this.user.password) {
         this.errorMessage = 'Todos os campos são obrigatórios';
         return;
@@ -111,12 +114,13 @@ export default {
         .then(() => {
           this.$router.push({ name: 'ListaDeErros' });
         })
-        .catch(
-          error => (
-            (this.user.password = ''),
-            (this.errorMessage = error.response.data.message)
-          ),
-        );
+        .catch(error => {
+          this.user.password = '';
+          this.errorMessage = error.response.data.message;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     setIsLogin(flag) {
       this.isLogin = flag;

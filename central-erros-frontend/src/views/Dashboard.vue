@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <b-loading is-full-page :active.sync="isLoading" />
     <div class="charts-container">
       <div class="is-width-80 chart-box">
         <div class="filter">
@@ -97,6 +98,7 @@ export default {
       'showErrorMonth',
       'showWarningMonth',
       'showDebugMonth',
+      'isLoading',
     ]),
     totalByMonthData() {
       return getTotalByMonthData({

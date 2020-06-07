@@ -1,5 +1,5 @@
 export default {
-  ['SET_USER'](state, user) {
+  ['setUser'](state, user) {
     state.user = user;
   },
 };

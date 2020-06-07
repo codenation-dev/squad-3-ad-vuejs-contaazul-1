@@ -7,31 +7,90 @@ import {
   deleteSelectLogs,
 } from '@/services/log';
 
+import { ToastProgrammatic as Toast } from 'buefy';
+
 import router from '@/router';
 
-const loadLogs = async ({ commit }) => {
-  const { data } = await loadLogsService();
-  commit('SET_LOGS', data);
+const loadLogs = ({ commit }) => {
+  commit('setLoading', true);
+  loadLogsService()
+    .then(({ data }) => {
+      commit('setLogs', data);
+    })
+    .catch(() => {
+      Toast.open({
+        duration: 5000,
+        message: 'Erro ao carregar registros',
+        type: 'is-danger',
+      });
+    })
+    .finally(() => {
+      commit('setLoading', false);
+    });
 };
 
-const deleteLog = async ({ dispatch }, id) => {
-  await deleteLogsService(id);
-  dispatch('reloadPage');
+const deleteLog = ({ dispatch, commit }, id) => {
+  commit('setLoading', true);
+  deleteLogsService(id)
+    .then(() => {
+      dispatch('reloadPage');
+    })
+    .catch(() => {
+      Toast.open({
+        duration: 5000,
+        message: 'Erro ao deletar registro',
+        type: 'is-danger',
+      });
+      commit('setLoading', false);
+    });
 };
 
-const deleteListLogs = async ({ dispatch }, idListLogs) => {
-  await deleteSelectLogs(idListLogs);
-  dispatch('reloadPage');
+const deleteListLogs = ({ dispatch, commit }, idListLogs) => {
+  commit('setLoading', true);
+  deleteSelectLogs(idListLogs)
+    .then(() => {
+      dispatch('reloadPage');
+    })
+    .catch(() => {
+      Toast.open({
+        duration: 5000,
+        message: 'Erro ao deletar registros',
+        type: 'is-danger',
+      });
+      commit('setLoading', false);
+    });
 };
 
-const arquivarLog = async ({ dispatch }, id) => {
-  await arquivarLogService(id);
-  dispatch('reloadPage');
+const arquivarLog = ({ dispatch, commit }, id) => {
+  commit('setLoading', true);
+  arquivarLogService(id)
+    .then(() => {
+      dispatch('reloadPage');
+    })
+    .catch(() => {
+      Toast.open({
+        duration: 5000,
+        message: 'Erro ao arquivar registro',
+        type: 'is-danger',
+      });
+      commit('setLoading', false);
+    });
 };
 
-const arquivarLogsList = async ({ dispatch }, idListLogs) => {
-  await arquivarSelectLogs(idListLogs);
-  dispatch('reloadPage');
+const arquivarLogsList = ({ dispatch, commit }, idListLogs) => {
+  commit('setLoading', true);
+  arquivarSelectLogs(idListLogs)
+    .then(() => {
+      dispatch('reloadPage');
+    })
+    .catch(() => {
+      Toast.open({
+        duration: 5000,
+        message: 'Erro ao arquivar registros',
+        type: 'is-danger',
+      });
+      commit('setLoading', false);
+    });
 };
 
 const reloadPage = ({ dispatch }) => {
@@ -41,35 +100,48 @@ const reloadPage = ({ dispatch }) => {
 };
 
 const addFilterLevel = ({ commit }, listLevel) => {
-  commit('SET_FILTER_LEVEL', listLevel);
+  commit('setFilterLevel', listLevel);
 };
 
 const addFilterColumn = ({ commit }, filter) => {
-  commit('SET_FILTER_COLUMN', { column: filter.column, search: filter.search });
+  commit('setFilterColumn', { column: filter.column, search: filter.search });
 };
 
 const resetLogs = ({ commit }) => {
-  commit('SET_LOGS', []);
+  commit('setLogs', []);
 };
 
-const loadLogsArchived = async ({ commit }) => {
-  const { data } = await loadLogsArchivedService();
-  commit('SET_LOGS_ARCHIVED', data);
+const loadLogsArchived = ({ commit }) => {
+  commit('setLoading', true);
+  loadLogsArchivedService()
+    .then(({ data }) => {
+      commit('setLogsArchived', data);
+    })
+    .catch(() => {
+      Toast.open({
+        duration: 5000,
+        message: 'Erro ao carregar registros',
+        type: 'is-danger',
+      });
+    })
+    .finally(() => {
+      commit('setLoading', false);
+    });
 };
 
 const addFilterLevelArchived = ({ commit }, listLevel) => {
-  commit('SET_FILTER_LEVEL_ARCHIVED', listLevel);
+  commit('setFilterLevelArchived', listLevel);
 };
 
 const addFilterColumnArchived = ({ commit }, filter) => {
-  commit('SET_FILTER_COLUMN_ARCHIVED', {
+  commit('setFilterColumnArchived', {
     column: filter.column,
     search: filter.search,
   });
 };
 
 const resetLogsArchived = ({ commit }) => {
-  commit('SET_LOGS_ARCHIVED', []);
+  commit('setLogsArchived', []);
 };
 
 export default {

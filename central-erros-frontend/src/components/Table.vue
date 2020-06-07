@@ -1,5 +1,6 @@
 <template>
   <section>
+    <b-loading is-full-page :active.sync="isLoading" />
     <div class="grid-container mb-1em">
       <div class="is-width-60">
         <div class="row">
@@ -28,23 +29,16 @@
     <b-table
       class="is-width-60 personal-table"
       :data="logList"
-      :bordered="isBordered"
-      :striped="isStriped"
-      :narrowed="isNarrowed"
       checkable
       :checked-rows.sync="selectedLogs"
-      :hoverable="isHoverable"
-      :loading="isLoading"
-      :focusable="isFocusable"
-      :mobile-cards="hasMobileCards"
-      :paginated="isPaginated"
-      :per-page="perPage"
+      mobile-cards
+      paginated
+      :per-page="10"
       :current-page.sync="currentPage"
-      :pagination-simple="isPaginationSimple"
-      :pagination-position="paginationPosition"
-      :default-sort-direction="defaultSortDirection"
-      :sort-icon="sortIcon"
-      :sort-icon-size="sortIconSize"
+      pagination-position="bottom"
+      default-sort-direction="asc"
+      sort-icon="chevron-down"
+      sort-icon-size="is-small"
       default-sort="data"
       aria-next-label="Próxima Página"
       aria-previous-label="Página Anterior"
@@ -150,7 +144,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import LogModal from './LogModal';
 import ActionModal from './ActionModal';
 export default {
@@ -165,29 +159,21 @@ export default {
 
   data() {
     return {
-      isEmpty: false,
-      isBordered: false,
-      isStriped: false,
-      isNarrowed: false,
-      isHoverable: false,
-      isFocusable: false,
-      isLoading: false,
-      hasMobileCards: true,
       isPaginated: true,
-      isPaginationSimple: false,
-      paginationPosition: 'bottom',
-      defaultSortDirection: 'asc',
-      sortIcon: 'chevron-down',
-      sortIconSize: 'is-small',
       currentPage: 1,
-      perPage: 10,
-
       selectedLogs: [],
       activeModal: false,
       activeActionModal: null,
       selectedLogDetails: null,
       logAction: null,
     };
+  },
+
+  computed: {
+    ...mapState('Logs', ['isLoading']),
+    isCheckAll() {
+      return this.selectedLogs.length == this.LogList.length;
+    },
   },
 
   methods: {
@@ -214,9 +200,8 @@ export default {
         } else {
           await this.arquivarLogsList(this.selectedLogs.map(log => log.id));
         }
-        this.selectedLogs = [];
       }
-
+      this.selectedLogs = [];
       this.activeActionModal = null;
       this.logAction = null;
     },
@@ -226,12 +211,6 @@ export default {
     onClickDetails(log) {
       this.selectedLogDetails = log;
       this.activeModal = true;
-    },
-  },
-  computed: {
-    ...mapGetters('Logs', ['logsIds']),
-    isCheckAll() {
-      return this.selectedLogs.length == this.LogList.length;
     },
   },
 };
