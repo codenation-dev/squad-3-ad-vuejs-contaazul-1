@@ -12,6 +12,7 @@ const showDevYear = true;
 const showErrorMonth = true;
 const showWarningMonth = true;
 const showDebugMonth = true;
+const isLoading = true;
 
 export default {
   logs,
@@ -28,4 +29,5 @@ export default {
   showErrorMonth,
   showWarningMonth,
   showDebugMonth,
+  isLoading,
 };
