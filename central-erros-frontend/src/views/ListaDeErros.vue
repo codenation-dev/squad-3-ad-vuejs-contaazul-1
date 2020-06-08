@@ -13,6 +13,7 @@
                     value="1"
                     id="prd"
                     type="checkbox"
+                    @click="addFilter"
                   />
                   <span class="checkbox"></span>
                   Produção
@@ -26,6 +27,7 @@
                     value="2"
                     id="hom"
                     type="checkbox"
+                    @click="addFilter"
                   />
                   <span class="checkbox"></span>
                   Homologação
@@ -39,6 +41,7 @@
                     value="3"
                     id="dev"
                     type="checkbox"
+                    @click="addFilter"
                   />
                   <span class="checkbox"></span>
                   Dev
@@ -60,7 +63,12 @@
               />
             </div>
             <div>
-              <input class="input" v-model="filterSearch" type="text" />
+              <input
+                class="input"
+                v-model="filterSearch"
+                type="text"
+                @keyup="addFilter"
+              />
             </div>
           </div>
         </div>
@@ -118,10 +126,11 @@ export default {
   },
   async created() {
     if (this.arquivados) {
-      this.loadLogsArchived();
+      await this.loadLogsArchived();
     } else {
-      this.loadLogs();
+      await this.loadLogs();
     }
+    this.addFilter();
   },
   computed: {
     ...mapGetters('Logs', [
@@ -134,10 +143,6 @@ export default {
     ...mapState('Logs', ['currentLogPage']),
 
     logList() {
-      this.addFilterColumn({
-        column: this.filterColumnListLogs,
-        search: this.filterSearch,
-      });
       if (this.filterLevel.length != 0) {
         this.addFilterLevel(this.filterLevel);
         return this.filteredLogs;
@@ -146,10 +151,6 @@ export default {
       return this.formatLogs;
     },
     archivedLogList() {
-      this.addFilterColumnArchived({
-        column: this.filterColumnListLogs,
-        search: this.filterSearch,
-      });
       if (this.filterLevel.length != 0) {
         this.addFilterLevelArchived(this.filterLevel);
         return this.filteredLogsArchived;
@@ -175,6 +176,18 @@ export default {
 
     onPageChange(page) {
       this.setCurrentLogPage(page);
+    },
+
+    addFilter() {
+      this.arquivados
+        ? this.addFilterColumnArchived({
+            column: this.filterColumnListLogs,
+            search: this.filterSearch,
+          })
+        : this.addFilterColumn({
+            column: this.filterColumnListLogs,
+            search: this.filterSearch,
+          });
     },
   },
 };

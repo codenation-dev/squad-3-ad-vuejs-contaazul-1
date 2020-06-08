@@ -44,4 +44,11 @@ describe('Login.vue', () => {
     inputs.at(1).trigger('keyup.enter');
     expect(wrapper.vm.onSubmit).toBeCalled();
   });
+
+  it('Deve exibir a senha quando botão exibir senha for clicado', () => {
+    const wrapper = factory({ showPassword: false });
+    const icon = wrapper.find('.icon-eye');
+    icon.trigger('click');
+    expect(wrapper.vm.showPassword).toBeTruthy();
+  });
 });
