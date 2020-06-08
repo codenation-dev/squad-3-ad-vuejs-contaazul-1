@@ -88,7 +88,10 @@ export default {
     return {
       isLogin: true,
       showPassword: false,
-      user: {},
+      user: {
+        password: null,
+        username: null,
+      },
       errorMessage: '',
       isLoading: false,
     };

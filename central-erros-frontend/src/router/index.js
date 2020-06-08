@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Index.vue';
-import Dashboard from '@/views/Dashboard.vue';
+import Dashboard from '@/views/Dashboard/DashboardView.vue';
 import ListaDeErros from '@/views/ListaDeErros.vue';
 import Login from '@/views/Login';
 import { beforeEach } from './interceptor';
