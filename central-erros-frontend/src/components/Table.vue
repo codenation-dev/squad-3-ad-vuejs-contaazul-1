@@ -36,7 +36,7 @@
       :per-page="10"
       :current-page.sync="currentPage"
       pagination-position="bottom"
-      default-sort-direction="asc"
+      default-sort-direction="desc"
       sort-icon="chevron-down"
       sort-icon-size="is-small"
       default-sort="data"
@@ -84,7 +84,7 @@
 
         <b-table-column field="data" label="Data" sortable width="40">
           <div @click="onClickDetails(props.row)">
-            {{ props.row.data }}
+            {{ getFormatedData(props.row) }}
           </div>
         </b-table-column>
 
@@ -147,6 +147,8 @@
 import { mapActions, mapState } from 'vuex';
 import LogModal from './LogModal';
 import ActionModal from './ActionModal';
+import moment from 'moment';
+
 export default {
   props: {
     logList: Array,
@@ -183,10 +185,12 @@ export default {
       'deleteLog',
       'deleteListLogs',
     ]),
+
     onClickShowActionModal(log, action) {
       this.logAction = log ? log : {};
       this.activeActionModal = action;
     },
+
     async onClickAction(action) {
       if (this.logAction?.id) {
         if (action === 'excluir') {
@@ -205,12 +209,18 @@ export default {
       this.activeActionModal = null;
       this.logAction = null;
     },
+
     verifySelectedLog(idLog) {
       return !this.selectedLogs.find(log => idLog == log.id);
     },
+
     onClickDetails(log) {
       this.selectedLogDetails = log;
       this.activeModal = true;
+    },
+
+    getFormatedData(log) {
+      return moment(log.data).format('DD/MM/YYYY');
     },
   },
 };

@@ -1,5 +1,4 @@
 import { tipo } from '@/utils/constants';
-import moment from 'moment';
 
 export const genericFormatLogs = (
   logs,
@@ -7,9 +6,6 @@ export const genericFormatLogs = (
   filterSearchLog,
 ) => {
   var formatedLogs = logs.map(log => {
-    log.data = log.data.includes('/')
-      ? log.data
-      : moment(log.data).format('DD/MM/YYYY');
     if (log.level == tipo.debug) {
       log.level = 'debug';
     } else if (log.level == tipo.warning) {
