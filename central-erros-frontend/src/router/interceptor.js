@@ -8,7 +8,9 @@ export const beforeEach = (to, from, next) => {
 
   if ((needAuth && isLogged) || !needAuth) {
     next();
-  } else if (!isLoginRoute) {
+  } else if (!isLoginRoute && !isLogged) {
     router.push({ name: 'Login' });
+  } else if (to.name === 'NotFound') {
+    router.push({ name: 'NotFound' });
   }
 };

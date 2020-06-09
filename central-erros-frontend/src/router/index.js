@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '@/views/Index.vue';
-import Dashboard from '@/views/Dashboard/DashboardView.vue';
-import ListaDeErros from '@/views/ListaDeErros.vue';
+import Home from '@/views/Index';
+import Dashboard from '@/views/Dashboard/DashboardView';
+import ListaDeErros from '@/views/ListaDeErros';
 import Login from '@/views/Login';
+import NotFound from '@/views/NotFound';
 import { beforeEach } from './interceptor';
 
 Vue.use(VueRouter);
@@ -11,7 +12,6 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: '/login',
     name: 'Home',
     component: Home,
     children: [
@@ -39,6 +39,15 @@ const routes = [
     name: 'Login',
     component: Login,
     meta: { noAuth: true },
+  },
+  {
+    path: '/404',
+    name: 'NotFound',
+    component: NotFound,
+  },
+  {
+    path: '*',
+    redirect: '/404',
   },
 ];
 
