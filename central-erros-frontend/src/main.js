@@ -8,11 +8,13 @@ import './../node_modules/bulma/css/bulma.css';
 import '../src/assets/font/linear-icons/style.css';
 import '../src/assets/font/simple-line/css/simple-line-icons.css';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
-import Buefy from 'buefy';
+import { Table, Navbar, Loading } from 'buefy';
 import 'buefy/dist/buefy.css';
 import { request } from '@/utils/interceptor';
 
-Vue.use(Buefy);
+Vue.use(Table);
+Vue.use(Navbar);
+Vue.use(Loading);
 
 moment.locale('pt_BR');
 
