@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div>
     <b-loading is-full-page :active.sync="isLoading" />
     <div class="charts-container">
       <div class="is-width-80 chart-box">

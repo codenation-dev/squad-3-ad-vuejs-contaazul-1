@@ -82,7 +82,7 @@
           </div>
         </b-table-column>
 
-        <b-table-column field="data" label="Data" sortable width="40">
+        <b-table-column field="data" label="Data" sortable width="180">
           <div @click="onClickDetails(props.row)">
             {{ getFormatedData(props.row) }}
           </div>
