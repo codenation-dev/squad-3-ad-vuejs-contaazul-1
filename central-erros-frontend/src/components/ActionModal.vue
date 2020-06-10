@@ -86,6 +86,13 @@ export default {
       font-weight: 400;
     }
   }
+  @media screen and (max-width: 870px) {
+    flex-direction: column;
+
+    .title {
+      padding-bottom: 20px;
+    }
+  }
 }
 
 .modal-card {
@@ -114,38 +121,11 @@ export default {
     border: none;
     border-radius: unset;
   }
+  @media screen and (max-width: 870px) {
+    width: 80vw;
+  }
 }
 .red-default {
   margin: 0;
-}
-.label-level {
-  > div {
-    display: flex;
-    justify-content: center;
-    width: 85px;
-  }
-  span {
-    border: 1.5px solid;
-    color: $blue-system;
-    background: $lightblue-system;
-    border-radius: 4px;
-    padding: 2px 4px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    line-height: 1;
-  }
-  &.warning {
-    span {
-      color: $brown-system;
-      background: $lightyellow-system;
-    }
-  }
-  &.error {
-    span {
-      color: $red-system;
-      background: $lightred-system;
-    }
-  }
 }
 </style>

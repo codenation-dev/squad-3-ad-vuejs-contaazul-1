@@ -124,25 +124,23 @@ export default {
     > div {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      justify-content: center;
       overflow-wrap: break-word;
       &.details-log {
         width: 100%;
 
         &.left-side {
-          width: 40%;
+          width: 35%;
           padding-right: 10px;
           height: 100%;
-          overflow: auto;
+          // overflow: auto;
           .info-log-details {
             height: 100%;
           }
         }
 
         &.right-side {
-          overflow: auto;
-          justify-content: flex-start;
+          // overflow: auto;
+          // justify-content: flex-start;
           height: 100%;
         }
       }
@@ -202,36 +200,6 @@ export default {
   }
   @media screen and (max-width: 768px) {
     width: 90vw;
-  }
-}
-.label-level {
-  > div {
-    display: flex;
-    justify-content: initial;
-    width: 85px;
-  }
-  span {
-    border: 1.5px solid;
-    color: $blue-system;
-    background: $lightblue-system;
-    border-radius: 4px;
-    padding: 2px 4px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    line-height: 1;
-  }
-  &.warning {
-    span {
-      color: $brown-system;
-      background: $lightyellow-system;
-    }
-  }
-  &.error {
-    span {
-      color: $red-system;
-      background: $lightred-system;
-    }
   }
 }
 </style>

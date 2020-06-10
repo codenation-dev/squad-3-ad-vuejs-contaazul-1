@@ -228,35 +228,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/style-utils.scss';
-.label-level {
-  > div {
-    display: flex;
-    justify-content: center;
-  }
-  span {
-    color: $blue-system;
-    background: $lightblue-system;
-    border-radius: 4px;
-    padding: 2px 4px;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    line-height: 1;
-    box-shadow: 0px 0px 5px 0px;
-  }
-  &.warning {
-    span {
-      color: $brown-system;
-      background: $lightyellow-system;
-    }
-  }
-  &.error {
-    span {
-      color: $red-system;
-      background: $lightred-system;
-    }
-  }
-}
 .is-width-60 {
   margin: auto;
   @media screen and (max-width: 1024px) {
