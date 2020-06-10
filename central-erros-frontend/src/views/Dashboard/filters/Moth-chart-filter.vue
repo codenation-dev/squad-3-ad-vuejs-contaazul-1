@@ -8,7 +8,7 @@
           @click="setErrorMonth(!showErrorMonth)"
         />
         <span class="checkbox"></span>
-        <span class="subtitle is-5">Error</span>
+        Error
       </label>
     </div>
     <div>
@@ -19,7 +19,7 @@
           @click="setWarningMonth(!showWarningMonth)"
         />
         <span class="checkbox"></span>
-        <span class="subtitle is-5">Warning</span>
+        Warning
       </label>
     </div>
     <div>
@@ -30,7 +30,7 @@
           @click="setDebugMonth(!showDebugMonth)"
         />
         <span class="checkbox"></span>
-        <span class="subtitle is-5">Debug</span>
+        Debug
       </label>
     </div>
   </div>
@@ -61,5 +61,10 @@ export default {
 .filter-row {
   display: flex;
   justify-content: space-between;
+  @media screen and(max-width: 540px) {
+    flex-direction: column;
+    align-items: baseline;
+    padding-bottom: 20px;
+  }
 }
 </style>
