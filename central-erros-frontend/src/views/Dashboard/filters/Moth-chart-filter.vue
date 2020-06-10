@@ -1,32 +1,35 @@
 <template>
   <div class="filter-row">
     <div>
-      <label class="checkbox">
+      <label class="person-checkbox">
         <input
           type="checkbox"
           :checked="showErrorMonth"
           @click="setErrorMonth(!showErrorMonth)"
         />
+        <span class="checkbox"></span>
         <span class="subtitle is-5">Error</span>
       </label>
     </div>
     <div>
-      <label class="checkbox">
+      <label class="person-checkbox">
         <input
           type="checkbox"
           :checked="showWarningMonth"
           @click="setWarningMonth(!showWarningMonth)"
         />
+        <span class="checkbox"></span>
         <span class="subtitle is-5">Warning</span>
       </label>
     </div>
     <div>
-      <label class="checkbox">
+      <label class="person-checkbox">
         <input
           type="checkbox"
           :checked="showDebugMonth"
           @click="setDebugMonth(!showDebugMonth)"
         />
+        <span class="checkbox"></span>
         <span class="subtitle is-5">Debug</span>
       </label>
     </div>
@@ -58,6 +61,5 @@ export default {
 .filter-row {
   display: flex;
   justify-content: space-between;
-  width: 40%;
 }
 </style>
