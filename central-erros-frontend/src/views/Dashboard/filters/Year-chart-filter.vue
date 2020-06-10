@@ -1,33 +1,36 @@
 <template>
   <div class="filter-row">
     <div>
-      <label class="checkbox">
+      <label class="person-checkbox">
         <input
           type="checkbox"
           :checked="showProdYear"
           @click="setProdYear(!showProdYear)"
         />
-        <span class="subtitle is-5">Produção</span>
+        <span class="checkbox"></span>
+        Produção
       </label>
     </div>
     <div>
-      <label class="checkbox">
+      <label class="person-checkbox">
         <input
           type="checkbox"
           :checked="showHmlYear"
           @click="setHmlYear(!showHmlYear)"
         />
-        <span class="subtitle is-5">Homologação</span>
+        <span class="checkbox"></span>
+        Homologação
       </label>
     </div>
     <div>
-      <label class="checkbox">
+      <label class="person-checkbox">
         <input
           type="checkbox"
           :checked="showDevYear"
           @click="setDevYear(!showDevYear)"
         />
-        <span class="subtitle is-5">Desenvolvimento</span>
+        <span class="checkbox"></span>
+        Desenvolvimento
       </label>
     </div>
   </div>
@@ -50,6 +53,10 @@ export default {
 .filter-row {
   display: flex;
   justify-content: space-between;
-  width: 60%;
+  @media screen and(max-width: 540px) {
+    flex-direction: column;
+    align-items: baseline;
+    padding-bottom: 20px;
+  }
 }
 </style>

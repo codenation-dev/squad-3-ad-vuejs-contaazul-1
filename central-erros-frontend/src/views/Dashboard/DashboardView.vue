@@ -7,10 +7,10 @@
           <month-filter />
         </div>
         <div class="local-container">
-          <div class="is-width-10 month-title">
+          <div class="month-title">
             <p class="title is-capitalized is-4">{{ currentMonth }}</p>
           </div>
-          <div class="is-width-90 ">
+          <div class="is-width-90 graphicModule">
             <total-by-month
               v-if="doneConfig"
               :chart-data="totalByMonthData"
@@ -22,18 +22,18 @@
     </div>
     <div class="charts-container chart-padding">
       <div class="chart-box is-width-80 anual-container">
-        <div class="is-width-80">
+        <div class="filter is-left-align">
           <year-filter />
         </div>
         <div class="local-container">
-          <div class="is-width-60 ">
+          <div class="is-width-60 graphicModule">
             <total-by-year
               v-if="doneConfig"
               :chart-data="totalByYearData"
               :options="LineChartConfig"
             />
           </div>
-          <div class="is-width-40">
+          <div class="is-width-40 graphicModule">
             <pie-tipo
               v-if="doneConfig"
               :chart-data="pieTipoData"
@@ -163,6 +163,12 @@ export default {
 .local-container {
   display: flex;
   max-height: inherit;
+  @media screen and (max-width: 890px) {
+    flex-direction: column;
+    .graphicModule {
+      width: 100%;
+    }
+  }
 }
 
 .anual-container {
@@ -174,6 +180,12 @@ export default {
 .filter {
   display: flex;
   justify-content: flex-end;
+  @media screen and (max-width: 890px) {
+    justify-content: center;
+  }
+  &.is-left-align {
+    justify-content: flex-start;
+  }
 }
 
 .month-title {
@@ -181,6 +193,11 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
   transform: rotate(-90deg);
+  @media screen and (max-width: 890px) {
+    width: 100%;
+    transform: rotate(0deg);
+  }
 }
 </style>
