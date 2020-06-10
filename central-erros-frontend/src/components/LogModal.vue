@@ -9,7 +9,7 @@
         <div class="details-log right-side">
           <div>
             <h1 class="title">
-              Erro no {{ log.origem }} em <span>{{ log.data }}</span>
+              Erro no {{ log.origem }} em <span>{{ logDate }}</span>
             </h1>
             <div
               class="col-15 label-level"
@@ -53,11 +53,19 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'LogModal',
 
   props: {
     log: Object,
+  },
+
+  computed: {
+    logDate() {
+      return moment(this.log.data).format('DD/MM/YYYY HH:mm:ss');
+    },
   },
 };
 </script>
