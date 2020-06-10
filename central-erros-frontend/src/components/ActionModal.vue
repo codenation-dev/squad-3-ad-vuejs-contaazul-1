@@ -8,7 +8,7 @@
 
           <div class="details-log" v-if="log.id">
             <h1 class="title">
-              Erro no {{ log.origem }} em <span> {{ log.data }}</span>
+              Erro no {{ log.origem }} em <span> {{ logData }}</span>
             </h1>
             <div
               class="label-level"
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'ActionModal',
 
@@ -57,6 +59,10 @@ export default {
         return `Deseja excluir todos os itens selecionados?`;
 
       return `Deseja arquivar todos os itens selecionados?`;
+    },
+
+    logData() {
+      return moment(this.log.data).format('DD/MM/YYYY HH:mm:ss');
     },
   },
 

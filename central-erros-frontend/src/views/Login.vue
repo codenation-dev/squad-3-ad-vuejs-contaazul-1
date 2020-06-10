@@ -100,11 +100,16 @@ export default {
   methods: {
     ...mapActions('User', ['login', 'create']),
     onSubmit() {
-      this.isLoading = true;
-      if (!this.user.username || !this.user.password) {
+      if (!this.user.username.trim() || !this.user.password.trim()) {
         this.errorMessage = 'Todos os campos são obrigatórios';
         return;
       }
+
+      if (this.user.password?.length < 4) {
+        this.errorMessage = 'A senha deve conter no mínino 4 caracteres.';
+        return;
+      }
+      this.isLoading = true;
       let func;
 
       if (this.isLogin) {

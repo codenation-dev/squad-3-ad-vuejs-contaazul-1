@@ -220,7 +220,7 @@ export default {
     },
 
     getFormatedData(log) {
-      return moment(log.data).format('DD/MM/YYYY');
+      return moment(log.data).format('DD/MM/YYYY HH:mm:ss');
     },
   },
 };
